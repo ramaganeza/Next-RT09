@@ -1,0 +1,2 @@
+// Isi dari Supabase: Project Settings > API. Kunci "anon" memang publik; keamanan data dijaga RLS (supabase/schema.sql).
+window.RT_CONFIG={ SUPABASE_URL:"https://bvvlxuckhvyurrcmeofg.supabase.co", SUPABASE_ANON_KEY:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2dmx4dWNraHZ5dXJyY21lb2ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQzOTQ0NzMsImV4cCI6MjEwOTk3MDQ3M30.FKItzwAtUxNOeRr9JHppuy9sEG4Sy-3CrxPXzUOXGEY" };
