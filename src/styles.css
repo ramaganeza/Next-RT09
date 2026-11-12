@@ -171,6 +171,17 @@ input,select,textarea{font-size:.9rem;padding:7px 11px;min-height:38px}input[typ
 .eyebrow{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.hsub{color:var(--muted);max-width:56ch}
 .hbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.hbtn .btn{text-decoration:none;display:inline-flex;align-items:center}
 .dnav{display:flex;gap:6px;overflow-x:auto;padding:10px 0;position:sticky;top:0;background:var(--bg);z-index:5;scrollbar-width:none}.dnav::-webkit-scrollbar{display:none}.dnav .chipb{white-space:nowrap}
+/* ---- tahap 9: halaman depan bersih ---- */
+.clean{max-width:980px;margin:0 auto}
+.clean .hero{padding:34px 0 18px;gap:20px}.clean .hlogo{width:72px;height:72px;border:0;border-radius:16px}
+.clean .hmain h1{font-weight:600;letter-spacing:-.01em}.clean .hsub{font-size:.95rem;line-height:1.55}
+.clean .dnav{border-bottom:1px solid var(--line);padding:8px 0;gap:2px}
+.clean .dnav .chipb{border:0;background:transparent;border-radius:8px;padding:6px 10px;color:var(--muted)}.clean .dnav .chipb:hover{color:inherit;background:color-mix(in srgb,currentColor 7%,transparent)}
+.clean .card{box-shadow:none;background:transparent;border:1px solid var(--line)}.clean .card.lift:hover{transform:none;box-shadow:none}
+.clean .row[id^="s-"]{margin:56px 0 16px!important;padding-top:24px;border-top:1px solid var(--line)}.clean #s-info{margin:0!important;padding:0!important;border:0!important}
+.clean .row[id^="s-"] h2{font-size:1.25rem;font-weight:600;letter-spacing:-.01em}
+.clean .grid{gap:14px}.clean .hint{opacity:.8}
+@media(max-width:560px){.clean .hero{padding-top:20px}.clean .row[id^="s-"]{margin-top:40px!important}}
 .kmon{overflow-x:auto;flex-wrap:nowrap}.kmon .chipb{white-space:nowrap}
 .klg{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin:6px 0 10px}.klg span{display:inline-flex;align-items:center;gap:5px}
 .dt{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--muted)}.dt.rapat{background:var(--accent)}.dt.kegiatan{background:var(--c1)}.dt.libur{background:var(--bad)}.dt.sewa{background:var(--c4)}

@@ -46,3 +46,8 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 2. Salin file baru ke repo (JANGAN menimpa `src/config.js` milik Anda), lalu Commit + Push di GitHub Desktop.
 3. Area Pengurus > Data warga > **Google Sheets**: unduh template, isi di Google Sheets, unduh .xlsx, impor.
 4. Aset & inventaris > **CCTV**; Keuangan > **Status iuran**. Baca `PANDUAN_CCTV.md`.
+
+## Tahap 9 (album & CCTV khusus warga, halaman depan bersih)
+1. Supabase > SQL Editor: jalankan `supabase/tahap9_album_cctv_warga.sql` (atau seluruh `SETUP_LENGKAP.sql`).
+2. Album foto kini hanya tampil di **Area Warga setelah login**. Isi tautannya lagi di aplikasi pengurus (Pengaturan > Album foto); tautan disimpan tertutup, tidak lagi di data publik.
+3. CCTV: di form kamera pilih akses **Warga (setelah login Area Warga)**.
