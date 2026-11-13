@@ -51,3 +51,8 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 1. Supabase > SQL Editor: jalankan `supabase/tahap9_album_cctv_warga.sql` (atau seluruh `SETUP_LENGKAP.sql`).
 2. Album foto kini hanya tampil di **Area Warga setelah login**. Isi tautannya lagi di aplikasi pengurus (Pengaturan > Album foto); tautan disimpan tertutup, tidak lagi di data publik.
 3. CCTV: di form kamera pilih akses **Warga (setelah login Area Warga)**.
+
+## Tahap 10 – Area Warga ikonik, notifikasi, Tanah Wakaf
+- Jalankan `supabase/tahap10_waqaf_warga.sql` di SQL Editor (atau gunakan `SETUP_LENGKAP.sql` terbaru untuk proyek baru). Ini menambahkan status Tanah Wakaf ke data keluarga yang dilihat warga setelah login.
+- Area Warga: header bergaya aplikasi bank, lonceng notifikasi (tagihan, surat, pertemuan, pengumuman, wakaf), menu ikon.
+- Jangan timpa `src/config.js` milik Anda saat menyalin paket baru.
