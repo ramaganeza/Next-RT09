@@ -56,3 +56,8 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 - Jalankan `supabase/tahap10_waqaf_warga.sql` di SQL Editor (atau gunakan `SETUP_LENGKAP.sql` terbaru untuk proyek baru). Ini menambahkan status Tanah Wakaf ke data keluarga yang dilihat warga setelah login.
 - Area Warga: header bergaya aplikasi bank, lonceng notifikasi (tagihan, surat, pertemuan, pengumuman, wakaf), menu ikon.
 - Jangan timpa `src/config.js` milik Anda saat menyalin paket baru.
+
+## Tahap 11 – Login fleksibel, Area Warga bertab, struktur pop-up
+- Jalankan `supabase/tahap11_login_fleksibel.sql` (atau `SETUP_LENGKAP.sql` terbaru untuk proyek baru): warga bisa masuk dengan No. KK ATAU NIK (kepala/anggota). Cara lama tetap berfungsi.
+- Area Warga: menu ikon bertab (Beranda, Data keluarga, Iuran & tagihan, Surat RT, Info RT).
+- Struktur pengurus tampil sebagai pop-up; data disinkronkan dengan Pengaturan (Ketua RT, Sekretaris, Bendahara). Ketua RW tampil di atas Ketua RT.

@@ -183,6 +183,19 @@ input,select,textarea{font-size:.9rem;padding:7px 11px;min-height:38px}input[typ
 .qt{border:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;padding:8px 2px;font:600 .74rem var(--f-body);color:var(--ink);border-radius:14px}
 .qt:hover{background:var(--accent-soft)}.qt:active{transform:scale(.96)}
 .qi{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}.qi svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hsub.lnote{font-size:.78rem;opacity:.92;margin:10px 0 0;max-width:62ch;line-height:1.45}
+.qgrid.qg4{grid-template-columns:repeat(4,1fr)}
+.ksel{font:600 .84rem var(--f-body);padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);min-height:36px;max-width:100%}
+.car{position:relative;margin-top:6px}.ctrack{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:0;border-radius:16px}.ctrack::-webkit-scrollbar{display:none}.cslide{flex:0 0 100%;scroll-snap-align:center;padding:0 2px;box-sizing:border-box;min-width:0}.cslide .pcard{height:100%}
+.cdots{display:flex;gap:6px;justify-content:center;margin-top:10px}.cdots i{width:7px;height:7px;border-radius:99px;background:var(--line);cursor:pointer;transition:all .2s}.cdots i.on{width:20px;background:var(--accent)}
+.ov.ovtop{align-items:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-top:max(12px,env(safe-area-inset-top,0px))}.ov.ovtop .dlg{margin:6px auto;max-height:none;border-radius:18px;animation:none}
+@media (max-width:859px){.mtop #sbtn2,.mtop [data-signout]{display:none!important}}
+.qgrid.qg5{grid-template-columns:repeat(5,1fr)}.qgrid.qg5 .qt{font-size:.66rem}
+.qgrid .qt[aria-current="page"]{color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent);border-radius:0}
+.kv2{width:100%;border-collapse:collapse;margin-top:8px}.kv2 td{padding:7px 0;border-top:1px solid var(--line);font-size:.9rem;vertical-align:top}.kv2 tr:first-child td{border-top:0}.kv2 td:first-child{color:var(--muted);width:42%;padding-right:10px}
+.ann{padding:10px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}.ann:first-of-type{border-top:0}.ann p{margin:4px 0 0}
+.bhero .wout{background:rgba(255,255,255,.16);color:inherit;border:1px solid rgba(255,255,255,.4)}
+@media(max-width:480px){.bhero .wout{padding:6px 10px}.bhero .bh-top{gap:10px}}
 .bh-top .hmain{min-width:0;flex:1}.bhero h1{overflow-wrap:anywhere}.bhero .hsub{overflow-wrap:anywhere}/* ---- tahap 11: ringkas & transparan ---- */
 .ov.wov{display:block;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:8px max(14px,env(safe-area-inset-left,0px)) calc(28px + env(safe-area-inset-bottom,0px))}
 .ov.wov .wrap{margin:0 auto}
