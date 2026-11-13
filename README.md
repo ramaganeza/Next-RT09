@@ -61,3 +61,7 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 - Jalankan `supabase/tahap11_login_fleksibel.sql` (atau `SETUP_LENGKAP.sql` terbaru untuk proyek baru): warga bisa masuk dengan No. KK ATAU NIK (kepala/anggota). Cara lama tetap berfungsi.
 - Area Warga: menu ikon bertab (Beranda, Data keluarga, Iuran & tagihan, Surat RT, Info RT).
 - Struktur pengurus tampil sebagai pop-up; data disinkronkan dengan Pengaturan (Ketua RT, Sekretaris, Bendahara). Ketua RW tampil di atas Ketua RT.
+
+## Tahap 12 – Status iuran Jan–Des di Area Warga
+- Jalankan `supabase/tahap12_iuran_bulan.sql` (atau `SETUP_LENGKAP.sql` terbaru). Warga melihat kolom Jan–Des (Lunas / Belum) berdasarkan "Lunas s.d" di menu Keuangan > Status iuran.
+- Tombol Keluar diperbaiki; animasi grafik tetap bisa diputar dengan tombol ↻ walau HP memakai mode hemat gerak.

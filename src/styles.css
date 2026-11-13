@@ -149,7 +149,7 @@ input,select,textarea{font-size:.9rem;padding:7px 11px;min-height:38px}input[typ
 .gl{margin:0;padding:0;list-style:none;display:grid}.gl li{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}.gl .gi{flex:1;min-width:0}.gl .btn{min-width:30px;padding:2px 8px}
 .sw{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--line);vertical-align:-2px}
 @media (pointer:coarse){.btn{min-height:44px}.btn.sm{min-height:40px}input,select,textarea{min-height:46px;font-size:16px}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){html:not([data-motion="on"]) *{animation:none!important;transition:none!important}}
 
 .paper{position:relative;background:#fff;color:#111;font:13px/1.5 "Times New Roman",Times,serif;padding:26px 30px;border:1px solid #ccc;min-width:560px}
 .paper .kop{display:flex;gap:14px;align-items:center;border-bottom:3px double #111;padding-bottom:8px;margin-bottom:12px;text-align:center}.paper .kop img{height:62px;width:auto}.paper .kop>div{flex:1}.paper .k1{font-weight:700;font-size:15px}
@@ -183,6 +183,21 @@ input,select,textarea{font-size:.9rem;padding:7px 11px;min-height:38px}input[typ
 .qt{border:0;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;padding:8px 2px;font:600 .74rem var(--f-body);color:var(--ink);border-radius:14px}
 .qt:hover{background:var(--accent-soft)}.qt:active{transform:scale(.96)}
 .qi{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}.qi svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bhero.wh{padding:12px 14px 12px}.bhero.wh .bh-top{gap:10px}.bhero.wh .hlogo{width:40px;height:40px;border-radius:11px;padding:4px}.bhero.wh .eyebrow{font-size:.64rem;margin:0}.bhero.wh h1{font-size:1.02rem;line-height:1.2;margin:1px 0 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bhero.wh .wbell{width:36px;height:36px;border-radius:11px}.bhero.wh .wbell svg{width:19px;height:19px}.bhero.wh .wbell i{min-width:17px;height:17px;font-size:.64rem;top:-6px;right:-6px}.bhero.wh .wx{margin-left:0}
+.bhero.wh .bh-top .wbell:nth-of-type(1){margin-left:auto}
+.whs{margin:8px 0 0!important;font-size:.8rem!important}
+.wid{display:flex;align-items:center;gap:8px 14px;flex-wrap:wrap;margin-top:6px;font-size:.78rem}.wid span{opacity:.95;white-space:nowrap}.wid b{font-weight:600;letter-spacing:.01em}
+.eye{margin-left:auto;width:34px;height:30px;border-radius:9px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.16);color:inherit;cursor:pointer;display:grid;place-items:center}.eye svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.mgr{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px}.mc{border-radius:10px;padding:6px 2px;text-align:center;display:flex;flex-direction:column;gap:1px;background:var(--surface-2,rgba(128,128,128,.12))}.mc b{font-size:.74rem}.mc span{font-size:.62rem}
+.mc.ok{background:var(--good-soft);color:var(--good)}.mc.no{background:var(--bad-soft);color:var(--bad)}.mc.na{color:var(--muted)}
+@media(min-width:560px){.mgr{grid-template-columns:repeat(12,1fr)}}
+.mob{display:none!important}
+.dsk{display:flex}
+.amenu{display:flex;flex-direction:column;gap:8px;margin-top:12px}.amenu .btn{width:100%;justify-content:center;padding:12px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.tools #q{flex:1 1 200px;min-width:0}
+.msel{width:100%;margin:0 0 12px;min-height:42px;font-size:.92rem}
+@media (max-width:859px){.dsk{display:none!important}.mob{display:inline-flex!important}select.mob{display:block!important}.tools #q{flex:1 1 0}.tools #fh{flex:1 1 100%}}
 .hsub.lnote{font-size:.78rem;opacity:.92;margin:10px 0 0;max-width:62ch;line-height:1.45}
 .qgrid.qg4{grid-template-columns:repeat(4,1fr)}
 .ksel{font:600 .84rem var(--f-body);padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);min-height:36px;max-width:100%}
@@ -265,7 +280,7 @@ input,select,textarea{font-size:.9rem;padding:7px 11px;min-height:38px}input[typ
 .charts.anim .gd{opacity:0;animation:fade .3s ease-out both;animation-delay:var(--d)}
 .charts.anim .ds{animation:fade .5s ease-out both;animation-delay:var(--d)}
 @keyframes grow{from{transform:scaleY(0)}}@keyframes growx{from{transform:scaleX(0)}}@keyframes draw{to{stroke-dashoffset:0}}@keyframes fade{from{opacity:0}}
-@media (prefers-reduced-motion:reduce){.charts.anim *{animation:none!important}}
+@media (prefers-reduced-motion:reduce){html:not([data-motion="on"]) .charts.anim *{animation:none!important}}
 .pub{max-width:1040px;margin:0 auto;padding:0 0 40px}
 .err{color:var(--bad)}.field.half{}
 .stat b{white-space:nowrap;font-size:clamp(1.05rem,5.2vw,1.55rem)}.card a:not(.btn){color:var(--accent)}

@@ -30,6 +30,6 @@
   window.RT_AUTH={onChange(){},state:()=>({signedIn:!!session,email:session&&session.user&&session.user.email,admin:role==="admin"||role==="owner",owner:role==="owner"}),
     signInPassword:async(email,password)=>{await ready;if(!sb)return {error:"config"};const {error}=await sb.auth.signInWithPassword({email,password});return error?{error:error.message}:{ok:true}},
     signInOtp:async email=>{await ready;if(!sb)return {error:"config"};const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});return error?{error:error.message}:{ok:true}},
-    signOut:async()=>{await ready;if(sb)await sb.auth.signOut()}};
+    signOut:async()=>{try{await ready;if(sb)await sb.auth.signOut({scope:"local"})}catch(e){}try{Object.keys(localStorage).filter(k=>/^sb-.*-auth-token/.test(k)).forEach(k=>localStorage.removeItem(k))}catch(e){}location.hash="";location.reload()}};
   window.RT_PUBLIC_SUBMIT=async(jenis,isi)=>{await ready;if(!sb)return {error:"gagal"};const {data,error}=await sb.rpc("kirim_masukan",{p_jenis:jenis,p_data:isi});return error?{error:"gagal"}:data};
 })();
