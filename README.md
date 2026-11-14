@@ -72,3 +72,8 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 - Asal informasi ditambah: Pemkot Tangerang, DKM / Masjid, Lainnya (bisa diketik sendiri).
 - Daftar penerima qurban dibuat ringkas; beranda umum hanya 3 pengumuman + tombol "Lihat semua".
 - Data warga diurutkan menurut alamat pada KK.
+
+## Tahap 18 – Aturan & SOP RT, beranda 3/4 pengumuman
+- Tidak perlu SQL baru. Salin file baru (jangan timpa `src/config.js`), Commit, Push.
+- Profil RT > tab **Aturan & SOP** (draf awal, bisa diubah di Pengaturan > Profil RT).
+- Beranda: 3 pengumuman di HP, 4 di layar lebar; tombol "Lihat semua".
