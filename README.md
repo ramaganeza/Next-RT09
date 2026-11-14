@@ -65,3 +65,15 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 ## Tahap 12 – Status iuran Jan–Des di Area Warga
 - Jalankan `supabase/tahap12_iuran_bulan.sql` (atau `SETUP_LENGKAP.sql` terbaru). Warga melihat kolom Jan–Des (Lunas / Belum) berdasarkan "Lunas s.d" di menu Keuangan > Status iuran.
 - Tombol Keluar diperbaiki; animasi grafik tetap bisa diputar dengan tombol ↻ walau HP memakai mode hemat gerak.
+
+## Tahap 17 – Berkas Excel/PDF/Word, Pengeluaran, Qurban ringkas
+- Tidak perlu SQL baru. Cukup salin file baru (jangan timpa `src/config.js`), Commit, Push.
+- Keuangan: tab **Pengeluaran** (daftar) + tombol **Berkas** (unduh Excel/PDF/Word, unggah Excel/CSV bila ada perubahan).
+- Asal informasi ditambah: Pemkot Tangerang, DKM / Masjid, Lainnya (bisa diketik sendiri).
+- Daftar penerima qurban dibuat ringkas; beranda umum hanya 3 pengumuman + tombol "Lihat semua".
+- Data warga diurutkan menurut alamat pada KK.
+
+## Tahap 18 – Aturan & SOP RT, beranda 3/4 pengumuman
+- Tidak perlu SQL baru. Salin file baru (jangan timpa `src/config.js`), Commit, Push.
+- Profil RT > tab **Aturan & SOP** (draf awal, bisa diubah di Pengaturan > Profil RT).
+- Beranda: 3 pengumuman di HP, 4 di layar lebar; tombol "Lihat semua".
