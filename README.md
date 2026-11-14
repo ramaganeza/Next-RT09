@@ -77,3 +77,4 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 - Tidak perlu SQL baru. Salin file baru (jangan timpa `src/config.js`), Commit, Push.
 - Profil RT > tab **Aturan & SOP** (draf awal, bisa diubah di Pengaturan > Profil RT).
 - Beranda: 3 pengumuman di HP, 4 di layar lebar; tombol "Lihat semua".
+- Data contoh + keluarga Siti Hodijah: jalankan `supabase/tahap18_data_contoh.sql` di SQL Editor Supabase (sekali saja).
