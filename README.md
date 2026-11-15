@@ -89,3 +89,11 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 - Tautan (album, Google Maps, CCTV, UMKM) kini dinormalkan otomatis menjadi `https://`; skema berbahaya (`javascript:`) ditolak.
 - Nomor WhatsApp: mendukung `08…`, `+62…`, `8…`, serta beberapa nomor (diambil yang pertama); nomor tidak valid tidak menampilkan tombol.
 - Tautan masuk (email) kini kembali ke alamat situs yang sama.
+
+## Tahap 21 (v21)
+- Beranda: kelurahan/kecamatan/kota kini di bawah "RT 09 / RW 01", ukuran kecil, maksimal 2 baris (HP dan web).
+- Keuangan: tombol "Status iuran" membuka pengaturan status per bulan (Lunas / Belum / Perlu dicek).
+- Jendela (modal) tampil di tengah layar; ikon panah carousel dipusatkan.
+- Tombol "Lihat struktur pengurus" pada beranda pengurus dihapus.
+- Foto contoh produk dan logo contoh UMKM: jalankan `supabase/tahap21_foto_contoh.sql` di Supabase (aman).
+- Data keluarga tanpa hitungan ganda: gunakan `tahap21_data_keluarga_RAHASIA.sql` (terpisah; JANGAN ke GitHub).
