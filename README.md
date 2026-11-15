@@ -97,3 +97,6 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 - Tombol "Lihat struktur pengurus" pada beranda pengurus dihapus.
 - Foto contoh produk dan logo contoh UMKM: jalankan `supabase/tahap21_foto_contoh.sql` di Supabase (aman).
 - Data keluarga tanpa hitungan ganda: gunakan `tahap21_data_keluarga_RAHASIA.sql` (terpisah; JANGAN ke GitHub).
+
+## Tahap 22 (v22)
+- Perbaikan: tombol status iuran membuka formulir "Tambah barang" karena atribut `data-iedit` bentrok dengan inventaris. Kini memakai `data-uied` dan tombol berlabel "Atur status".
