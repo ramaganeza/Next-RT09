@@ -78,3 +78,9 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 - Profil RT > tab **Aturan & SOP** (draf awal, bisa diubah di Pengaturan > Profil RT).
 - Beranda: 3 pengumuman di HP, 4 di layar lebar; tombol "Lihat semua".
 - Data contoh + keluarga Siti Hodijah: jalankan `supabase/tahap18_data_contoh.sql` di SQL Editor Supabase (sekali saja).
+
+## Tahap 19 – Beranda UMKM/Fasilitas/Pengumuman, kas ibu-ibu, bahasa baku
+- Tidak perlu SQL baru untuk kode. Salin berkas (jangan timpa `src/config.js`), Commit, Push. Label versi di sidebar: **v19**.
+- Beranda: UMKM 2 (HP) / 6 (web), Fasilitas 2 / 6, Pengumuman 2 / 4; visi RT 09 di bagian paling bawah.
+- Istilah pada tampilan disesuaikan ke bahasa formal dan baku.
+- Pembaruan data (KK, kas ibu-ibu) memakai berkas SQL terpisah `tahap18_update_data_RAHASIA.sql` yang TIDAK boleh dimasukkan ke GitHub.
