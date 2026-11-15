@@ -84,3 +84,8 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 - Beranda: UMKM 2 (HP) / 6 (web), Fasilitas 2 / 6, Pengumuman 2 / 4; visi RT 09 di bagian paling bawah.
 - Istilah pada tampilan disesuaikan ke bahasa formal dan baku.
 - Pembaruan data (KK, kas ibu-ibu) memakai berkas SQL terpisah `tahap18_update_data_RAHASIA.sql` yang TIDAK boleh dimasukkan ke GitHub.
+
+## Tahap 20 (v20) – Perbaikan tautan
+- Tautan (album, Google Maps, CCTV, UMKM) kini dinormalkan otomatis menjadi `https://`; skema berbahaya (`javascript:`) ditolak.
+- Nomor WhatsApp: mendukung `08…`, `+62…`, `8…`, serta beberapa nomor (diambil yang pertama); nomor tidak valid tidak menampilkan tombol.
+- Tautan masuk (email) kini kembali ke alamat situs yang sama.

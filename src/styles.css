@@ -1,3 +1,4 @@
+
 /* Layout: kerangka admin satu kolom (lebar 1000px), bilah atas dengan logo, tab, lalu konten; formulir tampil sebagai dialog. Palet diambil dari logo (perunggu gelap, tepi emas). */
 :root{
   --bg:#f1efec; --surface:#ffffff; --ink:#231c14; --muted:#6a6157; --line:#dcd6cc;

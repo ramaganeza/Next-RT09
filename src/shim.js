@@ -23,7 +23,7 @@
   const downloads={save:async({filename,data})=>{const b=data instanceof Blob?data:new Blob([data]);const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);return {status:"saved"}}};
   function loginBar(){if(document.getElementById("rt-login")||session)return;const d=document.createElement("div");d.id="rt-login";d.style.cssText="position:fixed;right:12px;top:12px;z-index:50;background:#fff;border:1px solid #ccc;border-radius:10px;padding:8px;display:flex;gap:6px;font:14px system-ui";
     d.innerHTML='<input type="email" placeholder="Email pengurus" style="padding:6px 8px"><button style="padding:6px 10px">Masuk</button>';
-    d.querySelector("button").onclick=async()=>{const em=d.querySelector("input").value.trim();if(!em)return;const {error}=await sb.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.href}});d.querySelector("button").textContent=error?"Gagal":"Cek email"};document.body.appendChild(d)}
+    d.querySelector("button").onclick=async()=>{const em=d.querySelector("input").value.trim();if(!em)return;const {error}=await sb.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.origin+location.pathname}});d.querySelector("button").textContent=error?"Gagal":"Cek email"};document.body.appendChild(d)}
   window.claude={use:async name=>{await ready;if(!sb)return name==="downloads"?downloads:null;
     if(name==="db")return db;if(name==="downloads")return downloads;
     if(name==="user"){return {canEdit:()=>role==="admin"||role==="owner",isOwner:()=>role==="owner",id:async()=>session&&session.user.id}}return null}};
