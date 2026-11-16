@@ -100,3 +100,10 @@ Warga masuk dengan No. KK + NIK anggota keluarga, lalu melihat data keluarganya,
 
 ## Tahap 22 (v22)
 - Perbaikan: tombol status iuran membuka formulir "Tambah barang" karena atribut `data-iedit` bentrok dengan inventaris. Kini memakai `data-uied` dan tombol berlabel "Atur status".
+
+Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh pengumuman berposter (id `pg-contoh-*`). Foto produk dan logo UMKM baru tampil di situs publik setelah file SQL ini dijalankan di Supabase.
+
+## Tahap 23 (v23) – Iuran Bapak-Bapak dan Ibu-Ibu
+- Area Pengurus: tombol "Atur status" memuat dua bagian (Kas Bapak-Bapak dan Kas Ibu-Ibu), disimpan di dokumen iuran (`bulan` dan `ibu.bulan`).
+- Area Warga: Iuran & tagihan menampilkan dua kotak bulanan terpisah.
+- WAJIB: jalankan `supabase/tahap22_iuran_ibu.sql` di Supabase agar Area Warga dapat membaca status bulanan (Bapak-Bapak dan Ibu-Ibu).

@@ -70,7 +70,7 @@ function confirmM(text,yes,label="Ya, lanjutkan"){modal(`<h3>Konfirmasi</h3><p s
 
 /* ---- tampilan ---- */
 function head(){return `<div class="top"><div class="brand"><img class="logo" src="${LOGO}" alt="Logo RT 09"><div><b>Sistem Informasi ${esc(S.set.namaRT)} / ${esc(S.set.rw)}</b><span>Kel. ${esc(S.set.kelurahan)}, ${esc(S.set.kota)}</span></div></div>
- <span class="pill ${S.admin?"p-gold":"p-mute"}">${S.admin?"Pengurus (dapat mengubah) · v22":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</div>`}
+ <span class="pill ${S.admin?"p-gold":"p-mute"}">${S.admin?"Pengurus (dapat mengubah) · v23":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</div>`}
 function render(){
   const a=$("#app");applyTema();
   if(!S.db&&MODE==="pengurus"){a.innerHTML=vLogin();bind7();return}
@@ -454,7 +454,7 @@ function shellHtml(tabs,content){
   const main=tabs.slice(0,S.admin?4:3),more=tabs.slice(main.length);
   return `<div class="shell"><aside class="side" aria-label="Menu utama"><div class="brand"><img class="logo" src="${LOGO}" alt="Logo RT 09"><div><b>${esc(S.set.namaRT)} / ${esc(S.set.rw)}</b><span>Kel. ${esc(S.set.kelurahan)}</span></div></div>
    ${S.admin?`<button class="sbtn" id="sbtn" aria-label="Cari">${ic("cari")}<span>Cari…</span><kbd>Ctrl K</kbd></button>`:""}
-   <nav class="snav">${tabs.map(t=>lk(t)).join("")}</nav>${albumA("alb",1)}<span class="pill ${S.admin?"p-gold":"p-mute"}" style="align-self:flex-start">${S.admin?"Pengurus (dapat mengubah) · v22":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm" data-signout="1" style="align-self:flex-start">Keluar</button>`:""}</aside>
+   <nav class="snav">${tabs.map(t=>lk(t)).join("")}</nav>${albumA("alb",1)}<span class="pill ${S.admin?"p-gold":"p-mute"}" style="align-self:flex-start">${S.admin?"Pengurus (dapat mengubah) · v23":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm" data-signout="1" style="align-self:flex-start">Keluar</button>`:""}</aside>
   <main class="mn ${S.anim?"anim":""}" id="mn"><div class="mtop"><div class="brand"><img class="logo" src="${LOGO}" alt="Logo RT 09"><div><b>${esc(S.set.namaRT)} / ${esc(S.set.rw)}</b><span>${S.admin?"Pengurus":"Hanya lihat"}</span></div></div><span style="display:flex;gap:8px">${albumU()&&albumOk(albumU())?`<a class="ib" href="${esc(albumU())}" target="_blank" rel="noopener noreferrer" aria-label="Album foto">${ic("foto")}</a>`:""}${S.admin?`<button class="ib" id="sbtn2" aria-label="Cari">${ic("cari")}</button>`:""}${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</span></div>${content}</main></div>
   <nav class="bnav" aria-label="Menu bawah">${main.map(t=>lk(t)).join("")}${more.length?`<button id="menuBtn" aria-label="Menu lainnya">${ic("menu")}<span>Menu</span>${more.some(t=>tabBadge(t[0]))?'<span class="bdg">!</span>':""}</button>`:""}</nav>`}
 function openMenu(){const tabs=TABS.filter(t=>!t[2]||S.admin);modal(`<div class="row"><h3>Menu</h3><button class="btn sm" id="mc">Tutup</button></div><div class="mgrid">${tabs.map(t=>`<a href="#${t[0]}" ${S.tab===t[0]?'aria-current="page"':""}>${ic(t[0])}<span>${t[1]}</span>${bdgH(t[0])}</a>`).join("")}${albumA("",1)}</div>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn" id="outM" style="width:100%;margin-top:12px">Keluar dari akun</button>`:""}`);$("#mc").onclick=closeM;const om=$("#outM");if(om)om.onclick=()=>window.RT_AUTH.signOut();document.querySelectorAll(".mgrid a").forEach(a=>a.addEventListener("click",()=>setTimeout(closeM,0)))}
@@ -1126,29 +1126,33 @@ function iuranView(){
   return `<div class="banner"><b>Tanda:</b> kolom November (tulisan tangan, halaman 13 'Iuran Warna tahun 2026') belum dimasukkan. Pengurus akan mengisi; baris bertanda <span class="pill p-warn">Perlu konfirmasi</span> menunggu pengecekan.</div>
   <div class="grid g4" style="margin:12px 0"><div class="card stat"><b>${isi}/${rows.length}</b><span>KK sudah terisi</span></div><div class="card stat"><b>${tg.length}</b><span>KK menunggak</span></div><div class="card stat"><b>${rp(tg.reduce((s,r)=>s+r.t*per,0))}</b><span>Perkiraan tunggakan</span></div><div class="card stat"><b>${konf}</b><span>Perlu konfirmasi</span></div></div>
   <p class="small muted" style="margin-bottom:8px">Perkiraan = bulan tertunggak x iuran bulanan ${rp(per)}. Angka resmi tetap mengikuti daftar piutang bendahara.</p>
-  <div class="card scroll" style="padding:6px"><table class="tbl"><thead><tr><th>Kepala keluarga</th><th>Alamat</th><th>Status bulan</th><th class="r">Tertunggak</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.f.kepala)}</b>${r.u.catatan?`<p class="small muted">${esc(r.u.catatan)}</p>`:""}</td><td class="small">${esc(r.f.alamat||"-")}</td><td>${strip(r.u,now)} ${r.u.lunasSd?'<span class="small muted">s.d '+perLabel(r.u.lunasSd)+'</span>':'<span class="muted small">Belum diisi</span>'} ${r.u.konf?'<span class="pill p-warn">Perlu konfirmasi</span>':""}</td><td class="num r">${r.t==null?"-":r.t?r.t+" bln":'<span class="pill p-good">Lancar</span>'}</td><td>${S.admin?`<button class="btn sm" data-uied="${esc(r.f.id)}">Atur status</button>`:""}</td></tr>`).join("")}</tbody></table></div>`}
+  <div class="card scroll" style="padding:6px"><table class="tbl"><thead><tr><th>Kepala keluarga</th><th>Alamat</th><th>Status bulan</th><th class="r">Tertunggak</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.f.kepala)}</b>${r.u.catatan?`<p class="small muted">${esc(r.u.catatan)}</p>`:""}</td><td class="small">${esc(r.f.alamat||"-")}</td><td><div class="small muted">Bapak-Bapak</div>${strip(r.u,now)} ${r.u.lunasSd?'<span class="small muted">s.d '+perLabel(r.u.lunasSd)+'</span>':'<span class="muted small">Belum diisi</span>'}<div class="small muted" style="margin-top:6px">Ibu-Ibu</div>${strip(r.u.ibu||{},now)} ${r.u.ibu&&r.u.ibu.lunasSd?'<span class="small muted">s.d '+perLabel(r.u.ibu.lunasSd)+'</span>':'<span class="muted small">Belum diisi</span>'} ${r.u.konf?'<span class="pill p-warn">Perlu konfirmasi</span>':""}</td><td class="num r">${r.t==null?"-":r.t?r.t+" bln":'<span class="pill p-good">Lancar</span>'}</td><td>${S.admin?`<button class="btn sm" data-uied="${esc(r.f.id)}">Atur status</button>`:""}</td></tr>`).join("")}</tbody></table></div>`}
 const BLNP=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
 function iuranStat(u,k,cur){const b=(u.bulan||{})[k];if(b)return b;const ls=u.lunasSd||"";if(!ls)return "";return k<=ls?"l":(k<=cur?"b":"")}
-function iuranForm(id,yr){const f=S.kel.find(x=>x.id===id);if(!f)return;const u=S.iuranD.find(x=>x.id===id)||{},cur=bulanSkrg(),Y=yr||+cur.slice(0,4);
-  const st={};for(let m=1;m<=12;m++){const k=Y+"-"+String(m).padStart(2,"0");st[k]=iuranStat(u,k,cur)}
+function iuranForm(id,yr,w0){const f=S.kel.find(x=>x.id===id);if(!f)return;const u=S.iuranD.find(x=>x.id===id)||{},cur=bulanSkrg(),Y=yr||+cur.slice(0,4);let w=w0||"bp";
+  const sub=x=>x==="ib"?(u.ibu||{}):u,KS=[];for(let m=1;m<=12;m++)KS.push(Y+"-"+String(m).padStart(2,"0"));
+  const st={bp:{},ib:{}};["bp","ib"].forEach(x=>KS.forEach(k=>{st[x][k]=iuranStat(sub(x),k,cur)}));
   const NM={"":"–",l:"Lunas",b:"Belum",k:"Cek"},CL={"":"na",l:"ok",b:"no",k:"kf"},NX={"":"l",l:"b",b:"k",k:""};
-  const draw=()=>Object.keys(st).map((k,i)=>`<button type="button" class="mc mcb ${CL[st[k]]}" data-mk="${k}"><b>${BLNP[i]}</b><span>${NM[st[k]]}</span></button>`).join("");
-  modal(`<h3>Status iuran: ${esc(f.kepala)}</h3><div class="row" style="margin:10px 0"><button class="btn sm" id="iyP">‹ ${Y-1}</button><b>Tahun ${Y}</b><button class="btn sm" id="iyN">${Y+1} ›</button></div>
-  <p class="small muted">Ketuk satu bulan untuk mengganti status: kosong → Lunas → Belum → Perlu dicek.</p>
+  const draw=()=>KS.map((k,i)=>`<button type="button" class="mc mcb ${CL[st[w][k]]}" data-mk="${k}"><b>${BLNP[i]}</b><span>${NM[st[w][k]]}</span></button>`).join("");
+  const WL={bp:"Kas Bapak-Bapak",ib:"Kas Ibu-Ibu"},tabs=()=>Object.keys(WL).map(x=>`<button type="button" class="chipb" data-iw="${x}" aria-pressed="${w===x}">${WL[x]}</button>`).join("");
+  const mer=x=>{const nb={...(sub(x).bulan||{})};KS.forEach(k=>{if(st[x][k])nb[k]=st[x][k];else delete nb[k]});return nb};
+  const lsOf=nb=>{let ls="";for(const k of Object.keys(nb).sort()){if(nb[k]==="l")ls=k;else if(nb[k]==="b"||nb[k]==="k")break}return ls};
+  modal(`<h3>Status iuran: ${esc(f.kepala)}</h3><div class="chips" id="iuW" style="margin:10px 0">${tabs()}</div><div class="row" style="margin:10px 0"><button class="btn sm" id="iyP">‹ ${Y-1}</button><b>Tahun ${Y}</b><button class="btn sm" id="iyN">${Y+1} ›</button></div>
+  <p class="small muted">Pilih Kas Bapak-Bapak atau Kas Ibu-Ibu, lalu ketuk satu bulan untuk mengganti status: kosong → Lunas → Belum → Perlu dicek.</p>
   <div class="mgr mgr6" id="iuG">${draw()}</div>
   <div class="mleg" style="margin-top:8px"><span><i class="ok"></i>Lunas</span><span><i class="no"></i>Belum</span><span><i class="kf"></i>Perlu dicek</span><span><i class="na"></i>Kosong</span></div>
   <div class="row" style="margin:10px 0;gap:6px;flex-wrap:wrap"><button class="btn sm" id="iuAll">Lunas sampai bulan ini</button><button class="btn sm" id="iuClr">Kosongkan tahun ini</button></div>
   <div class="field"><label for="iuC">Catatan</label><input id="iuC" value="${esc(u.catatan||"")}"></div>
   <label class="small" style="display:flex;gap:8px;align-items:center;margin:8px 0"><input type="checkbox" id="iuK" ${u.konf?"checked":""}> Perlu konfirmasi (data ragu / tulisan tangan)</label>
   <div class="row" style="margin-top:12px;justify-content:flex-end;gap:8px"><button class="btn" id="mc">Batal</button><button class="btn pri" id="iuS">Simpan</button></div>`);
-  const g=$("#iuG");g.onclick=e=>{const b=e.target.closest("[data-mk]");if(!b)return;const k=b.dataset.mk;st[k]=NX[st[k]];g.innerHTML=draw()};
-  $("#iyP").onclick=()=>{keep();iuranForm(id,Y-1)};$("#iyN").onclick=()=>{keep();iuranForm(id,Y+1)};
-  const keep=()=>{const nb={...(u.bulan||{})};Object.keys(st).forEach(k=>{if(st[k])nb[k]=st[k];else delete nb[k]});u.bulan=nb;u.catatan=$("#iuC").value;u.konf=$("#iuK").checked;S.iuranD=S.iuranD.filter(x=>x.id!==id).concat([{...u,id}])};
-  $("#iuAll").onclick=()=>{Object.keys(st).forEach(k=>{st[k]=k<=cur?"l":""});g.innerHTML=draw()};
-  $("#iuClr").onclick=()=>{Object.keys(st).forEach(k=>st[k]="");g.innerHTML=draw()};
-  $("#iuS").onclick=async()=>{const nb={...(u.bulan||{})};Object.keys(st).forEach(k=>{if(st[k])nb[k]=st[k];else delete nb[k]});
-    const ks=Object.keys(nb).sort();let ls="";for(const k of ks){if(nb[k]==="l")ls=k;else if(nb[k]==="b"||nb[k]==="k")break}
-    const d={lunasSd:ls||u.lunasSd||"",bulan:nb,catatan:$("#iuC").value,konf:$("#iuK").checked||Object.values(nb).includes("k")};
+  const g=$("#iuG");g.onclick=e=>{const b=e.target.closest("[data-mk]");if(!b)return;const k=b.dataset.mk;st[w][k]=NX[st[w][k]];g.innerHTML=draw()};
+  $("#iuW").onclick=e=>{const b=e.target.closest("[data-iw]");if(!b)return;w=b.dataset.iw;$("#iuW").innerHTML=tabs();g.innerHTML=draw()};
+  const keep=()=>{u.bulan=mer("bp");u.ibu={...(u.ibu||{}),bulan:mer("ib")};u.catatan=$("#iuC").value;u.konf=$("#iuK").checked;S.iuranD=S.iuranD.filter(x=>x.id!==id).concat([{...u,id}])};
+  $("#iyP").onclick=()=>{keep();iuranForm(id,Y-1,w)};$("#iyN").onclick=()=>{keep();iuranForm(id,Y+1,w)};
+  $("#iuAll").onclick=()=>{KS.forEach(k=>{st[w][k]=k<=cur?"l":""});g.innerHTML=draw()};
+  $("#iuClr").onclick=()=>{KS.forEach(k=>st[w][k]="");g.innerHTML=draw()};
+  $("#iuS").onclick=async()=>{const nb=mer("bp"),ni=mer("ib");
+    const d={lunasSd:lsOf(nb)||u.lunasSd||"",bulan:nb,ibu:{lunasSd:lsOf(ni)||(u.ibu&&u.ibu.lunasSd)||"",bulan:ni},catatan:$("#iuC").value,konf:$("#iuK").checked||Object.values(nb).includes("k")||Object.values(ni).includes("k")};
     try{await saveDoc("iuran",S.iuranD,id,d);closeM();render();toast("Tersimpan")}catch(e){toast("Gagal menyimpan: "+e.message)}}}
 
 /* ---------- CCTV Hikvision ---------- */
