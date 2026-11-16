@@ -113,3 +113,7 @@ Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh peng
 - Carousel di beranda publik: nomor, titik, tombol, dan geser otomatis kini aktif.
 - Area Warga di HP: menu berada di bilah bawah.
 - Data keuangan (Area Pengurus): status bulan Bapak-Bapak dan Ibu-Ibu disusun rapi per baris.
+
+## Tahap 25 (v25)
+- Area Warga: sesi login disimpan di peramban (localStorage, 24 jam). Setelah refresh, warga tetap masuk; tombol keluar menghapus sesi.
+- Berkas JavaScript dan CSS di `index.html` kini memakai `?v=25` agar peramban tidak memakai berkas lama (cache). Naikkan angkanya setiap rilis.

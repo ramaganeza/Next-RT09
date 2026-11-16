@@ -70,7 +70,7 @@ function confirmM(text,yes,label="Ya, lanjutkan"){modal(`<h3>Konfirmasi</h3><p s
 
 /* ---- tampilan ---- */
 function head(){return `<div class="top"><div class="brand"><img class="logo" src="${LOGO}" alt="Logo RT 09"><div><b>Sistem Informasi ${esc(S.set.namaRT)} / ${esc(S.set.rw)}</b><span>Kel. ${esc(S.set.kelurahan)}, ${esc(S.set.kota)}</span></div></div>
- <span class="pill ${S.admin?"p-gold":"p-mute"}">${S.admin?"Pengurus (dapat mengubah) · v24":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</div>`}
+ <span class="pill ${S.admin?"p-gold":"p-mute"}">${S.admin?"Pengurus (dapat mengubah) · v25":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</div>`}
 function render(){
   const a=$("#app");applyTema();
   if(!S.db&&MODE==="pengurus"){a.innerHTML=vLogin();bind7();return}
@@ -454,7 +454,7 @@ function shellHtml(tabs,content){
   const main=tabs.slice(0,S.admin?4:3),more=tabs.slice(main.length);
   return `<div class="shell"><aside class="side" aria-label="Menu utama"><div class="brand"><img class="logo" src="${LOGO}" alt="Logo RT 09"><div><b>${esc(S.set.namaRT)} / ${esc(S.set.rw)}</b><span>Kel. ${esc(S.set.kelurahan)}</span></div></div>
    ${S.admin?`<button class="sbtn" id="sbtn" aria-label="Cari">${ic("cari")}<span>Cari…</span><kbd>Ctrl K</kbd></button>`:""}
-   <nav class="snav">${tabs.map(t=>lk(t)).join("")}</nav>${albumA("alb",1)}<span class="pill ${S.admin?"p-gold":"p-mute"}" style="align-self:flex-start">${S.admin?"Pengurus (dapat mengubah) · v24":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm" data-signout="1" style="align-self:flex-start">Keluar</button>`:""}</aside>
+   <nav class="snav">${tabs.map(t=>lk(t)).join("")}</nav>${albumA("alb",1)}<span class="pill ${S.admin?"p-gold":"p-mute"}" style="align-self:flex-start">${S.admin?"Pengurus (dapat mengubah) · v25":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm" data-signout="1" style="align-self:flex-start">Keluar</button>`:""}</aside>
   <main class="mn ${S.anim?"anim":""}" id="mn"><div class="mtop"><div class="brand"><img class="logo" src="${LOGO}" alt="Logo RT 09"><div><b>${esc(S.set.namaRT)} / ${esc(S.set.rw)}</b><span>${S.admin?"Pengurus":"Hanya lihat"}</span></div></div><span style="display:flex;gap:8px">${albumU()&&albumOk(albumU())?`<a class="ib" href="${esc(albumU())}" target="_blank" rel="noopener noreferrer" aria-label="Album foto">${ic("foto")}</a>`:""}${S.admin?`<button class="ib" id="sbtn2" aria-label="Cari">${ic("cari")}</button>`:""}${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</span></div>${content}</main></div>
   <nav class="bnav" aria-label="Menu bawah">${main.map(t=>lk(t)).join("")}${more.length?`<button id="menuBtn" aria-label="Menu lainnya">${ic("menu")}<span>Menu</span>${more.some(t=>tabBadge(t[0]))?'<span class="bdg">!</span>':""}</button>`:""}</nav>`}
 function openMenu(){const tabs=TABS.filter(t=>!t[2]||S.admin);modal(`<div class="row"><h3>Menu</h3><button class="btn sm" id="mc">Tutup</button></div><div class="mgrid">${tabs.map(t=>`<a href="#${t[0]}" ${S.tab===t[0]?'aria-current="page"':""}>${ic(t[0])}<span>${t[1]}</span>${bdgH(t[0])}</a>`).join("")}${albumA("",1)}</div>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn" id="outM" style="width:100%;margin-top:12px">Keluar dari akun</button>`:""}`);$("#mc").onclick=closeM;const om=$("#outM");if(om)om.onclick=()=>window.RT_AUTH.signOut();document.querySelectorAll(".mgrid a").forEach(a=>a.addEventListener("click",()=>setTimeout(closeM,0)))}
@@ -1212,7 +1212,8 @@ window.addEventListener("hashchange",route);
 (async()=>{
   render();
   try{const u=await window.claude?.use?.("user");if(window.RT_AUTH){window.RT_AUTH.onChange(()=>{S.admin=window.RT_AUTH.state().admin;S.owner=window.RT_AUTH.state().owner;render()})}S.admin=!!(u&&u.canEdit&&u.canEdit());S.owner=!!(u&&u.isOwner&&u.isOwner());try{S.dl=await window.claude?.use?.("downloads")}catch(e){S.dl=null}S.db=await window.claude?.use?.("db")}catch(e){S.db=null}
-  route();if(!S.db)return;
+  route();try{if(MODE==="publik"&&!S.admin&&window.RT_WARGA&&window.RT_WARGA.pending&&window.RT_WARGA.pending())wargaOpen()}catch(e){}
+  if(!S.db)return;
   const timer=setTimeout(()=>{S.slow=true;render()},10000),got={};
   const sub=(name,fn)=>S.db.collection(name).onSnapshot(s=>{fn(s.docs.map(d=>({id:d.id,...d.data()})));got[name]=1;if(!s.metadata.fromCache){clearTimeout(timer);S.ready=true;S.slow=false}render()},e=>{S.errs[name]=e.code;clearTimeout(timer);render()});
   S.db.doc("pengaturan/rt").onSnapshot(s=>{if(s.exists)S.set={...DEF,...s.data(),jadwal:{...DEF.jadwal,...(s.data().jadwal||{})}};render()},()=>{});

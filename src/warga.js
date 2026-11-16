@@ -15,11 +15,12 @@ const err=e=>MSG[e&&e.error]||"Terjadi gangguan. Coba lagi.";
 /* Panggil RPC; fungsi server mengembalikan {error:"kode"} (bukan melempar galat) agar penghitung percobaan gagal tersimpan. */
 async function rpc(fn,args){const {data,error}=await sb.rpc(fn,args);if(error)return {error:"gangguan"};return data}
 function head(){return `<div class="row"><h3>Area Warga</h3>${cred?'<button class="btn sm" id="out">Keluar</button>':'<button class="btn sm" id="back">Tutup</button>'}</div>`}
+const SK="rt09w";const sget=()=>{try{const o=JSON.parse(localStorage.getItem(SK)||"null");return o&&o.kk&&Date.now()-o.t<864e5?o:null}catch(e){return null}},sset=o=>{try{o?localStorage.setItem(SK,JSON.stringify({...o,t:Date.now()})):localStorage.removeItem(SK)}catch(e){}};
 function login(){W().innerHTML=`<div class="dlg" style="margin:6px auto;max-width:520px;animation:none">${head()}<form id="lf"><p class="muted small" style="margin:6px 0 14px">Masuk dengan <b>No. Kartu Keluarga</b> atau <b>NIK</b> (kepala keluarga maupun anggota keluarga), 16 digit.</p>
 <div class="field"><label for="kk">No. KK atau NIK</label><input id="kk" inputmode="numeric" autocomplete="off" maxlength="19" placeholder="16 digit"></div>
 <p class="err" id="e" role="alert"></p><button class="btn pri" style="width:100%">Masuk</button><p class="hint" style="margin-top:10px">Data hanya dipakai untuk menampilkan informasi keluarga Anda. Jangan bagikan No. KK dan NIK kepada orang lain.</p></form></div>`;
  $("#back").onclick=()=>closeCb&&closeCb();$("#lf").onsubmit=async e=>{e.preventDefault();$("#e").textContent="";const kk=dg($("#kk").value);if(kk.length!==16){$("#e").textContent="No. KK atau NIK harus 16 digit.";return}
-  const d=await rpc("warga_masuk",{p_kk:kk,p_nik:""});if(d.error){$("#e").textContent=err(d);return}cred={kk,nik:""};data=d;tab="beranda";home()}}
+  const d=await rpc("warga_masuk",{p_kk:kk,p_nik:""});if(d.error){$("#e").textContent=err(d);return}cred={kk,nik:""};data=d;tab="beranda";sset({kk,open:1});home()}}
 function extra(){const ok=u=>/^https:\/\/[^\s]+$/i.test(u||"");let h="";
  if(ok(data.album))h+=`<div class="card" style="margin-top:14px"><h3>Album foto kegiatan</h3><p class="small muted" style="margin:6px 0 10px">Dokumentasi pertemuan dan kegiatan warga RT 09.</p><a class="btn pri sm" style="text-decoration:none;display:inline-flex" href="${esc(data.album)}" target="_blank" rel="noopener noreferrer">Buka album</a></div>`;
  const c=(data.cctv||[]).filter(x=>ok(x.url));if(c.length)h+=`<div class="card" style="margin-top:14px"><h3>CCTV lingkungan</h3><p class="small muted" style="margin:6px 0 10px">Khusus warga. Jangan dibagikan atau direkam ulang tanpa izin pengurus.</p>${c.map(x=>`<p style="margin:8px 0"><b>${esc(x.nama||"")}</b><span class="small muted"> ${esc(x.lokasi||"")}</span><br><a class="btn sm" style="text-decoration:none;display:inline-flex;margin-top:4px" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">Buka tayangan</a></p>`).join("")}</div>`;
@@ -82,7 +83,7 @@ async function home(){const f=data.keluarga;
  W().innerHTML=`<div class="clean"><section class="bhero wh"><div class="bh-top"><img class="hlogo" src="${LOGO}" alt="Logo RT 09"><div class="hmain"><p class="eyebrow">Area Warga</p><h1>${esc(f.kepala)}</h1></div>${bell()}<button class="wbell wx" id="out" aria-label="Keluar" title="Keluar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H5v16h4M16 8l4 4-4 4M20 12H9"/></svg></button></div>
   <p class="hsub whs">${esc(f.alamat||"-")}</p><div class="wid"><span>KK <b class="mono" id="wkk">${mask(f.kk)}</b></span><span>NIK <b class="mono" id="wnik">${mask(kep.nik)}</b></span><button class="eye" id="eye" aria-label="Tampilkan / sembunyikan nomor" aria-pressed="${REV}">${eyeI(REV)}</button></div></section>
   <nav class="qgrid qg5" aria-label="Menu warga">${TABS.map(t=>`<button class="qt" data-t="${t[0]}"><span class="qi">${ic(t[2])}</span><span>${t[1]}</span></button>`).join("")}</nav><div id="pnl"></div></div>`;
- const w=W();$("#bl").onclick=sheet;$("#out").onclick=()=>{cred=null;data=null;REV=false;login()};$("#eye").onclick=()=>{REV=!REV;$("#wkk").textContent=mask(f.kk);$("#wnik").textContent=mask(kep.nik);$("#eye").innerHTML=eyeI(REV);$("#eye").setAttribute("aria-pressed",REV);draw()};
+ const w=W();$("#bl").onclick=sheet;$("#out").onclick=()=>{cred=null;data=null;REV=false;sset(null);login()};$("#eye").onclick=()=>{REV=!REV;$("#wkk").textContent=mask(f.kk);$("#wnik").textContent=mask(kep.nik);$("#eye").innerHTML=eyeI(REV);$("#eye").setAttribute("aria-pressed",REV);draw()};
  w.querySelectorAll(".qt[data-t]").forEach(b=>b.onclick=()=>{tab=b.dataset.t;draw()});draw()}
 function ajukan(){const f=data.keluarga,ang=(f.anggota||[]).filter(a=>(a.status||"Aktif")==="Aktif");
  W().innerHTML=`<div class="dlg" style="margin:6px auto;max-width:520px;animation:none"><div class="row"><h3>Ajukan surat</h3></div><form id="sf" style="margin-top:6px"><div class="field" style="margin-top:12px"><label for="n">Atas nama</label><select id="n">${ang.map(a=>`<option>${esc(a.nama)}</option>`).join("")}</select></div>
@@ -91,5 +92,7 @@ function ajukan(){const f=data.keluarga,ang=(f.anggota||[]).filter(a=>(a.status|
  $("#bk").onclick=home;$("#sf").onsubmit=async e=>{e.preventDefault();const j=JENIS.find(x=>x[0]===$("#j").value);
   const a=await rpc("warga_ajukan_surat",{p_kk:cred.kk,p_nik:cred.nik,p_nama:$("#n").value,p_jenis:j[0],p_layout:j[1],p_keperluan:$("#k").value.trim()||j[2]});if(a.error){$("#e").textContent=err(a);return}
   const r=await rpc("warga_masuk",{p_kk:cred.kk,p_nik:cred.nik});if(!r.error)data=r;toast("Pengajuan terkirim, menunggu persetujuan Ketua RT");home()}}
-window.RT_WARGA={mount(el,onClose){box=el;closeCb=onClose;cred=null;data=null;login()}};
+window.RT_WARGA={pending(){const s=sget();return !!(s&&s.open)},mount(el,onClose){box=el;closeCb=()=>{const s=sget();if(s)sset({kk:s.kk,open:0});onClose&&onClose()};cred=null;data=null;const s=sget();
+ if(!s){login();return}sset({kk:s.kk,open:1});el.innerHTML='<div class="dlg" style="margin:6px auto;max-width:520px;animation:none"><p class="muted">Memuat data keluarga…</p></div>';
+ rpc("warga_masuk",{p_kk:s.kk,p_nik:""}).then(d=>{if(!d||d.error){sset(null);login();return}cred={kk:s.kk,nik:""};data=d;tab="beranda";home()}).catch(()=>{sset(null);login()})}};
 })();
