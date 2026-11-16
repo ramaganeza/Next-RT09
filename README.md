@@ -107,3 +107,9 @@ Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh peng
 - Area Pengurus: tombol "Atur status" memuat dua bagian (Kas Bapak-Bapak dan Kas Ibu-Ibu), disimpan di dokumen iuran (`bulan` dan `ibu.bulan`).
 - Area Warga: Iuran & tagihan menampilkan dua kotak bulanan terpisah.
 - WAJIB: jalankan `supabase/tahap22_iuran_ibu.sql` di Supabase agar Area Warga dapat membaca status bulanan (Bapak-Bapak dan Ibu-Ibu).
+
+## Tahap 24 (v24)
+- Status bulanan menjadi acuan tunggakan: saat status iuran disimpan, daftar piutang (Bapak-Bapak dan Ibu-Ibu), total, keterangan otomatis ("Iuran bulan Mei s.d Juli + September 2026 (4 x Rp 30.000)"), tampilan Area Warga, dan grafik ikut menyesuaikan. Keterangan lama disimpan di `ketLama`. Iuran Ibu-Ibu per bulan: pengaturan `iuranIbu` (bawaan Rp100.000).
+- Carousel di beranda publik: nomor, titik, tombol, dan geser otomatis kini aktif.
+- Area Warga di HP: menu berada di bilah bawah.
+- Data keuangan (Area Pengurus): status bulan Bapak-Bapak dan Ibu-Ibu disusun rapi per baris.
