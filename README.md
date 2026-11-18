@@ -122,3 +122,7 @@ Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh peng
 - Perbaikan: tombol **Batal** pada form Status iuran kini menutup form.
 - Baru: Keuangan > Status iuran punya tombol **+ Tambah KK ke daftar iuran** dan **Keluarkan** per KK. KK yang dikeluarkan tidak dihitung di status, tunggakan, dan piutang (data tidak dihapus, bisa diikutkan lagi).
 - Data warga kini memuat pendidikan, pekerjaan, dan status kawin (dari foto KK), serta KK baru Irwan Erlangga. Untuk situs GitHub Pages, jalankan `tahap26_data_keluarga_RAHASIA.sql` di Supabase (jangan diunggah ke GitHub).
+
+## Tahap 27 (v27)
+- Hero Pengaturan punya tombol **Kembali ke Beranda**.
+- Pengaturan > Pembayaran: **Iuran bulanan** dibagi dua kartu (Bapak-Bapak dan Ibu-Ibu), masing-masing berisi komponen dan total. Nominal menjadi acuan hitungan tunggakan; saat diubah, jumlah dan keterangan piutang bulan berjalan dihitung ulang dari status bulanan tiap KK. Tidak perlu SQL baru.
