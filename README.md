@@ -117,3 +117,8 @@ Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh peng
 ## Tahap 25 (v25)
 - Area Warga: sesi login disimpan di peramban (localStorage, 24 jam). Setelah refresh, warga tetap masuk; tombol keluar menghapus sesi.
 - Berkas JavaScript dan CSS di `index.html` kini memakai `?v=25` agar peramban tidak memakai berkas lama (cache). Naikkan angkanya setiap rilis.
+
+## Tahap 26 (v26)
+- Perbaikan: tombol **Batal** pada form Status iuran kini menutup form.
+- Baru: Keuangan > Status iuran punya tombol **+ Tambah KK ke daftar iuran** dan **Keluarkan** per KK. KK yang dikeluarkan tidak dihitung di status, tunggakan, dan piutang (data tidak dihapus, bisa diikutkan lagi).
+- Data warga kini memuat pendidikan, pekerjaan, dan status kawin (dari foto KK), serta KK baru Irwan Erlangga. Untuk situs GitHub Pages, jalankan `tahap26_data_keluarga_RAHASIA.sql` di Supabase (jangan diunggah ke GitHub).
