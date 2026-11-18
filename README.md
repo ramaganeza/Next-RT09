@@ -126,3 +126,7 @@ Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh peng
 ## Tahap 27 (v27)
 - Hero Pengaturan punya tombol **Kembali ke Beranda**.
 - Pengaturan > Pembayaran: **Iuran bulanan** dibagi dua kartu (Bapak-Bapak dan Ibu-Ibu), masing-masing berisi komponen dan total. Nominal menjadi acuan hitungan tunggakan; saat diubah, jumlah dan keterangan piutang bulan berjalan dihitung ulang dari status bulanan tiap KK. Tidak perlu SQL baru.
+
+## Tahap 28 (v28)
+- Tombol kembali di hero Pengaturan kini hanya ikon, hanya tampil di HP.
+- Struktur pengurus: tiap jabatan bisa diberi foto kecil (otomatis dikecilkan); tanpa foto tampil inisial. Bagan ditata ulang (kotak lebih ringkas, 2 kolom di HP, garis penghubung antar tingkat). Tidak perlu SQL baru.
