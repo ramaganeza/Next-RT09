@@ -86,14 +86,32 @@
         set:put,update:async p=>put(merge((store[coll]||{})[id]||{},p)),delete:async()=>{if(store[coll])delete store[coll][id];save();notify(coll)}}}};
   const downloads={save:async({filename,data})=>{const b=data instanceof Blob?data:new Blob([data]);const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)}};
 
+
+  /* klien Supabase tiruan untuk Area Warga (hanya membaca / menulis store demo) */
+  const dg=x=>String(x||"").replace(/\D/g,"");
+  function demoRpc(fn,a){
+    const kel=Object.entries(store.keluarga||{}).map(([id,d])=>({id,...d}));
+    const f=kel.find(k=>k.aktif!==false&&(dg(k.kk)===dg(a.p_kk)||dg(k.nikKepala)===dg(a.p_kk)||(k.anggota||[]).some(m=>dg(m.nik)&&dg(m.nik)===dg(a.p_kk))));
+    if(!f)return {error:"tidak_ditemukan"};
+    if(fn==="warga_ajukan_surat"){const m=(f.anggota||[]).find(x=>x.nama===a.p_nama);if(!m)return {error:"anggota_tidak_ditemukan"};const id="s-"+Date.now();(store.surat=store.surat||{})[id]={tanggal:iso(Y,M,now.getDate()),jenis:a.p_jenis,layout:a.p_layout,status:"menunggu",kkId:f.id,nama:m.nama,keperluan:a.p_keperluan||"",sumber:"warga",nomor:""};save();notify("surat");return {ok:true,id}}
+    const tag=[];for(const jn of ["warga","ibu"]){const docs=Object.values(store.piutang||{}).filter(p=>p.jenis===jn).sort((x,y)=>y.periode.localeCompare(x.periode));const p=docs[0];if(p)(p.items||[]).filter(e=>e.kkId===f.id).forEach(e=>tag.push({jenis:jn,periode:p.periode,jumlah:e.jumlah,keterangan:e.keterangan,sementara:false}))}
+    const iu=(store.iuran||{})[f.id]||{};
+    const sur=Object.entries(store.surat||{}).filter(([,s])=>s.kkId===f.id).map(([id,s])=>({id,jenis:s.jenis,status:s.status||"selesai",nomor:s.nomor||"",tanggal:s.tanggal,nama:s.nama})).sort((x,y)=>y.tanggal.localeCompare(x.tanggal));
+    return {iuran:{lunasSd:iu.lunasSd||"",konf:!!iu.konf,bulan:iu.bulan||{},ibu:{lunasSd:(iu.ibu||{}).lunasSd||"",bulan:(iu.ibu||{}).bulan||{}}},album:"",cctv:[],keluarga:{kepala:f.kepala,alamat:f.alamat,hp:f.hp,hunian:f.hunian,waqaf:f.waqaf||"",kk:f.kk,anggota:f.anggota||[]},tagihan:tag,surat:sur}}
+  function qb(coll){const o={f:[]};const run=()=>{let rows=Object.entries(store[coll]||{}).map(([id,d])=>({id,data:clone(d)}));if(coll==="docs")rows=[];return rows};
+    const b={select(){return b},eq(k,v){o.f.push([k,v]);return b},then(ok,no){let r;const c=(o.f.find(x=>x[0]==="coll")||[])[1],i=(o.f.find(x=>x[0]==="id")||[])[1];r=Object.entries(store[c]||{}).filter(([id])=>i===undefined||id===i).map(([id,d])=>({id,data:clone(d)}));return Promise.resolve({data:r,error:null}).then(ok,no)}};return b}
+  window.__demoSb={from:()=>qb("docs"),rpc:async(fn,a)=>({data:demoRpc(fn,a),error:null})};
+
   /* dipanggil setelah shim.js dimuat: menimpa jembatan Supabase */
   window.__demoInstall=function(){
-    window.claude={use:async n=>n==="db"?db:n==="downloads"?downloads:n==="user"?{canEdit:()=>true,isOwner:()=>true,id:async()=>"demo"}:null};
-    window.RT_AUTH={onChange(){},state:()=>({signedIn:true,email:"demo@contoh.id",admin:true,owner:true}),signInPassword:async()=>({ok:true}),signInOtp:async()=>({ok:true}),signOut:async()=>{location.href=location.pathname}};
+    const RK="rt-demo-role",role=()=>{try{return sessionStorage.getItem(RK)||"pengurus"}catch(e){return"pengurus"}},isA=()=>role()!=="warga";
+    window.claude={use:async n=>n==="db"?db:n==="downloads"?downloads:n==="user"?{canEdit:()=>isA(),isOwner:()=>isA(),id:async()=>"demo"}:null};
+    window.RT_AUTH={onChange(){},state:()=>({signedIn:isA(),email:"demo@contoh.id",admin:isA(),owner:isA()}),signInPassword:async()=>{try{sessionStorage.setItem(RK,"pengurus")}catch(e){}location.reload();return {ok:true}},signInOtp:async()=>{try{sessionStorage.setItem(RK,"pengurus")}catch(e){}location.reload();return {ok:true}},signOut:async()=>{try{sessionStorage.setItem(RK,"warga")}catch(e){}location.hash="";location.reload()}};
     window.RT_PUBLIC_SUBMIT=async()=>({ok:true});
     document.addEventListener("DOMContentLoaded",()=>{
-      const st=document.createElement("style");st.textContent="#demoBar{position:fixed;top:0;left:0;right:0;z-index:90;background:#b3261e;color:#fff;font:600 12px/1.2 system-ui,sans-serif;padding:6px 10px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}#demoBar button{background:#fff;color:#b3261e;border:0;border-radius:999px;padding:3px 10px;font:600 12px system-ui;cursor:pointer}body{padding-top:30px}";document.head.appendChild(st);
-      const b=document.createElement("div");b.id="demoBar";b.innerHTML="<span>MODE DEMO &middot; data fiktif &middot; perubahan hanya tersimpan di tab ini</span><button id='demoReset'>Setel ulang</button>";document.body.appendChild(b);
-      document.getElementById("demoReset").onclick=()=>{try{sessionStorage.removeItem(KEY)}catch(e){}location.reload()}});
+      const st=document.createElement("style");st.textContent="#demoBar{position:fixed;top:0;left:0;right:0;z-index:20;background:#b3261e;color:#fff;font:600 12px/1.2 system-ui,sans-serif;padding:6px 10px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap}#demoBar button{margin-left:2px;background:#fff;color:#b3261e;border:0;border-radius:999px;padding:3px 10px;font:600 12px system-ui;cursor:pointer}";document.head.appendChild(st);
+      const b=document.createElement("div");b.id="demoBar";const k0=Object.values(store.keluarga||{})[0]||{};b.innerHTML="<span>MODE DEMO &middot; data fiktif &middot; perubahan hanya tersimpan di tab ini"+(isA()?"":" &middot; coba Area Warga dengan No. KK "+(k0.kk||""))+"</span><button id='demoRole'>"+(isA()?"Lihat sebagai warga":"Kembali ke pengurus")+"</button><button id='demoReset'>Setel ulang</button>";document.body.appendChild(b);document.body.style.paddingTop=b.offsetHeight+"px";
+      document.getElementById("demoRole").onclick=()=>{try{sessionStorage.setItem(RK,isA()?"warga":"pengurus")}catch(e){}location.hash="";location.reload()};
+      document.getElementById("demoReset").onclick=()=>{try{sessionStorage.removeItem(KEY);sessionStorage.removeItem(RK)}catch(e){}location.reload()}});
   };
 })();

@@ -139,3 +139,9 @@ Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh peng
   - **Link khusus (opsional)**: tambahkan `DEMO_KODE:"rahasia123"` ke `src/config.js` milikmu (jangan menimpa kunci Supabase), lalu bagikan `?demo=rahasia123`. Tanpa baris itu, `?demo=1` berlaku untuk siapa pun.
   - Area Warga (login No. KK) tidak tersedia di mode demo.
 - Tidak perlu SQL baru.
+
+## Tahap 30 (v30)
+- **Nominal iuran per KK**: di form Status iuran ada "Nominal khusus Bapak-Bapak / Ibu-Ibu" (kosong = standar). Tunggakan dan piutang memakai nominal khusus itu.
+- **Excel iuran**: ekspor/impor sheet Iuran kini punya kolom `Lunas s.d Ibu (YYYY-MM)`, `Nominal khusus Bapak`, `Nominal khusus Ibu`, `Ikut iuran`. Perbaikan: impor tidak lagi menghapus status bulanan yang sudah ada.
+- **Foto Ketua RW** bisa diatur di Pengaturan > Identitas & pengurus. Foto pengurus dan Ketua RW tampil di Area Warga > Info RT.
+- **Mode demo** kini punya tombol "Lihat sebagai warga" untuk mencoba Area Warga (login dengan No. KK contoh yang tertera di pita merah) dan "Kembali ke pengurus".
