@@ -130,3 +130,12 @@ Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh peng
 ## Tahap 28 (v28)
 - Tombol kembali di hero Pengaturan kini hanya ikon, hanya tampil di HP.
 - Struktur pengurus: tiap jabatan bisa diberi foto kecil (otomatis dikecilkan); tanpa foto tampil inisial. Bagan ditata ulang (kotak lebih ringkas, 2 kolom di HP, garis penghubung antar tingkat). Tidak perlu SQL baru.
+
+## Tahap 29 (v29): Branding, Tampilan, dan Mode Demo
+- **Pengaturan > Tampilan > Branding**: logo, nama aplikasi, judul & baris hero, tagline. Dipakai di sudut atas, hero, judul tab, kop surat, PDF, dan Area Warga.
+- **Pengaturan > Tampilan > Tampilan & tata letak**: sudut kotak (Tajam/Sedang/Bulat), kerapatan, gaya hero (Gradasi/Polos/Ringkas), ukuran kotak menu, dan menu admin yang ditampilkan.
+- **Mode Demo** (`src/demo.js`): buka `https://<situs>/?demo=1` untuk melihat aplikasi lengkap dengan data FIKTIF (RT 05 / RW 03, 14 KK contoh). Semua fitur pengurus bisa dicoba dan dikustomisasi (logo, nama, warna, tata letak); perubahan hanya tersimpan di tab browser pengunjung dan hilang saat ditutup atau tombol "Setel ulang" ditekan.
+  - **Aman**: saat mode demo aktif, koneksi Supabase dimatikan sebelum dimuat, jadi data warga asli tidak pernah dibaca atau ditulis.
+  - **Link khusus (opsional)**: tambahkan `DEMO_KODE:"rahasia123"` ke `src/config.js` milikmu (jangan menimpa kunci Supabase), lalu bagikan `?demo=rahasia123`. Tanpa baris itu, `?demo=1` berlaku untuk siapa pun.
+  - Area Warga (login No. KK) tidak tersedia di mode demo.
+- Tidak perlu SQL baru.
