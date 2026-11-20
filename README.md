@@ -145,3 +145,17 @@ Catatan Tahap 21: `supabase/tahap21_foto_contoh.sql` juga menambah 3 contoh peng
 - **Excel iuran**: ekspor/impor sheet Iuran kini punya kolom `Lunas s.d Ibu (YYYY-MM)`, `Nominal khusus Bapak`, `Nominal khusus Ibu`, `Ikut iuran`. Perbaikan: impor tidak lagi menghapus status bulanan yang sudah ada.
 - **Foto Ketua RW** bisa diatur di Pengaturan > Identitas & pengurus. Foto pengurus dan Ketua RW tampil di Area Warga > Info RT.
 - **Mode demo** kini punya tombol "Lihat sebagai warga" untuk mencoba Area Warga (login dengan No. KK contoh yang tertera di pita merah) dan "Kembali ke pengurus".
+
+## Tahap 31 (v31): Aplikasi bisa dipasang (PWA)
+Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service worker, ikon, pita "Pasang aplikasi"). Lihat `PANDUAN_PASANG_APLIKASI.md` untuk cara pasang, serta jalur Google Play dan App Store.
+
+
+## Tahap 32
+- Spanduk lama pada Status iuran dihapus; diganti keterangan hanya bila ada baris 'Perlu konfirmasi'.
+- Cache PWA naik ke v32.
+
+
+## Tahap 33
+- Menu ikon beranda pengurus dinamis (maks 2 baris; bila lebih ada ikon "Lainnya").
+- Jarak kosong di bawah menu dihilangkan.
+- Beranda warga: Surat diajukan di bawah Iuran; kotak bulan 6 kolom di HP/tablet.
