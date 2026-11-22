@@ -185,3 +185,10 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 - Menu halaman depan satu baris, sisanya masuk "Lainnya".
 - Tombol WhatsApp Bendahara di bawah rekening/QRIS (nomor dapat diubah di Pengaturan > Pembayaran).
 - Foto profil warga dari Area Warga, tampil di data warga pengurus. **Jalankan `supabase/tahap38_foto_profil.sql` sekali di Supabase SQL Editor.**
+
+## Tahap 39
+- Pengaturan > Pembayaran: kartu "WhatsApp Bendahara" (nomor dan nama dapat diubah kapan saja).
+- Foto profil warga: tanpa foto tampil siluet sesuai jenis kelamin + inisial; pesan galat lebih jelas (jalankan `supabase/tahap38_foto_profil.sql` bila belum).
+- Data warga di layar lebar tidak lagi dobel; Pertemuan dan Sosial & qurban dirapikan sesuai tema.
+- Baru: absensi pertemuan per KK dan rekap kehadiran.
+- Perbaikan: tombol Pengaturan > Tampilan (galat warna bawaan), visi-misi di Area Warga.
