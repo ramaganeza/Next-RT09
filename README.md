@@ -165,3 +165,10 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 - Menu ikon berwarna (beranda pengurus dan warga), tampilan login baru.
 - Beranda pengurus: Perlu tindakan, kartu kas, statistik warga (L/P, umur).
 - Inventaris berupa daftar avatar + tombol tambah; linimasa kegiatan dengan galeri, filter tahun, dan pencarian.
+
+
+## Tahap 35-36
+- Tema putih (06.00-17.30) dan hitam (petang-malam) otomatis; tombol matahari/bulan untuk Otomatis/Terang/Gelap.
+- Palet baru senada (tosca), preset warna: Tosca (bawaan), Perunggu, Biru tegas, dll.
+- Login pengurus (jendela dari halaman depan) dan login warga bergaya baru.
+- Info dobel dihapus: kartu statistik beranda digabung ke Statistik warga; pintasan dobel di warga dan menu ikon di komputer disembunyikan.
