@@ -159,3 +159,9 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 - Menu ikon beranda pengurus dinamis (maks 2 baris; bila lebih ada ikon "Lainnya").
 - Jarak kosong di bawah menu dihilangkan.
 - Beranda warga: Surat diajukan di bawah Iuran; kotak bulan 6 kolom di HP/tablet.
+
+
+## Tahap 34
+- Menu ikon berwarna (beranda pengurus dan warga), tampilan login baru.
+- Beranda pengurus: Perlu tindakan, kartu kas, statistik warga (L/P, umur).
+- Inventaris berupa daftar avatar + tombol tambah; linimasa kegiatan dengan galeri, filter tahun, dan pencarian.
