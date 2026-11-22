@@ -94,6 +94,7 @@
     const f=kel.find(k=>k.aktif!==false&&(dg(k.kk)===dg(a.p_kk)||dg(k.nikKepala)===dg(a.p_kk)||(k.anggota||[]).some(m=>dg(m.nik)&&dg(m.nik)===dg(a.p_kk))));
     if(!f)return {error:"tidak_ditemukan"};
     if(fn==="warga_ajukan_surat"){const m=(f.anggota||[]).find(x=>x.nama===a.p_nama);if(!m)return {error:"anggota_tidak_ditemukan"};const id="s-"+Date.now();(store.surat=store.surat||{})[id]={tanggal:iso(Y,M,now.getDate()),jenis:a.p_jenis,layout:a.p_layout,status:"menunggu",kkId:f.id,nama:m.nama,keperluan:a.p_keperluan||"",sumber:"warga",nomor:""};save();notify("surat");return {ok:true,id}}
+    if(fn==="warga_foto"){const an=f.anggota||[],m=an.find(x=>x.nama===a.p_nama);if(!m)return {error:"anggota_tidak_ditemukan"};if(a.p_foto&&(!/^data:image\//.test(a.p_foto)||a.p_foto.length>60000))return {error:"foto_tidak_valid"};if(a.p_foto)m.foto=a.p_foto;else delete m.foto;store.keluarga[f.id].anggota=an;save();notify("keluarga");return {ok:true}}
     const tag=[];for(const jn of ["warga","ibu"]){const docs=Object.values(store.piutang||{}).filter(p=>p.jenis===jn).sort((x,y)=>y.periode.localeCompare(x.periode));const p=docs[0];if(p)(p.items||[]).filter(e=>e.kkId===f.id).forEach(e=>tag.push({jenis:jn,periode:p.periode,jumlah:e.jumlah,keterangan:e.keterangan,sementara:false}))}
     const iu=(store.iuran||{})[f.id]||{};
     const sur=Object.entries(store.surat||{}).filter(([,s])=>s.kkId===f.id).map(([id,s])=>({id,jenis:s.jenis,status:s.status||"selesai",nomor:s.nomor||"",tanggal:s.tanggal,nama:s.nama})).sort((x,y)=>y.tanggal.localeCompare(x.tanggal));

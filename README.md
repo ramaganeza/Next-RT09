@@ -177,3 +177,11 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 ## Tahap 37
 - Tombol tema di pojok kanan atas hero halaman depan.
 - Data warga di HP berupa daftar avatar ringkas; grafik saldo, pengingat, dan kartu kegiatan dirapikan.
+
+## Tahap 38
+- Filter kegiatan ringkas (pencarian + pilihan tahun + jenis yang bisa digeser).
+- Foto asli barang inventaris dan foto fasum/fasos (ketuk gambar untuk mengganti).
+- Halaman Keuangan HP lebih simpel (pilihan bagian + tombol Aksi; Berkas pindah ke Aksi).
+- Menu halaman depan satu baris, sisanya masuk "Lainnya".
+- Tombol WhatsApp Bendahara di bawah rekening/QRIS (nomor dapat diubah di Pengaturan > Pembayaran).
+- Foto profil warga dari Area Warga, tampil di data warga pengurus. **Jalankan `supabase/tahap38_foto_profil.sql` sekali di Supabase SQL Editor.**
