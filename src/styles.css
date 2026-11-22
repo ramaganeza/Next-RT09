@@ -340,7 +340,11 @@ html[data-tile="besar"] .qt{padding:14px 4px;font-size:.8rem}html[data-tile="bes
 @media (max-width:859px){.clean .qgrid.qg5{position:fixed;left:0;right:0;bottom:0;z-index:30;margin:0;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--surface);border:0;border-top:1px solid var(--line);border-radius:0;box-shadow:0 -6px 18px rgba(0,0,0,.08);grid-template-columns:repeat(5,minmax(0,1fr));gap:2px}
 .clean .qgrid.qg5 .qt{padding:6px 2px;gap:2px;font-size:.64rem;border-radius:10px;box-shadow:none}.clean .qgrid.qg5 .qt .qi svg{width:22px;height:22px}.clean .qgrid.qg5 .qt[aria-current="page"]{background:var(--accent-soft);color:var(--accent);box-shadow:none}.clean:has(.qgrid.qg5){padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}}
 
-#s-info{margin-top:28px!important}.hbtn .modeb{background:rgba(255,255,255,.18);color:inherit;border:1px solid rgba(255,255,255,.35);border-radius:12px;width:44px;height:44px}
+#s-info{margin-top:28px!important}.hmode{position:absolute;right:14px;top:14px;z-index:3}.hmode .modeb{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:12px;width:42px;height:42px}.hbtn .modeb{background:rgba(255,255,255,.18);color:inherit;border:1px solid rgba(255,255,255,.35);border-radius:12px;width:44px;height:44px}
+/* ---- tahap 37 ---- */
+.vmb{margin-bottom:84px}@media(min-width:860px){.vmb{display:none}}@media(max-width:859px){.vdk{display:none}}
+.evact{display:flex;gap:6px;justify-content:flex-end;margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+.hero,.bhero{position:relative}.bhero:has(.hmode) .bh-top{padding-right:50px}
 /* ---- tahap 34: gabungan UI ---- */
 @media(min-width:860px){.qgrid.qgn{display:none}}
 .lgw{position:fixed;inset:0;overflow:auto;margin:0!important;z-index:5}.qgn .qt[aria-current]{box-shadow:none!important;background:none!important}.wtiles{margin:14px 0 4px}

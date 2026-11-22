@@ -172,3 +172,8 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 - Palet baru senada (tosca), preset warna: Tosca (bawaan), Perunggu, Biru tegas, dll.
 - Login pengurus (jendela dari halaman depan) dan login warga bergaya baru.
 - Info dobel dihapus: kartu statistik beranda digabung ke Statistik warga; pintasan dobel di warga dan menu ikon di komputer disembunyikan.
+
+
+## Tahap 37
+- Tombol tema di pojok kanan atas hero halaman depan.
+- Data warga di HP berupa daftar avatar ringkas; grafik saldo, pengingat, dan kartu kegiatan dirapikan.
