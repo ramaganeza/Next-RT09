@@ -192,3 +192,7 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 - Data warga di layar lebar tidak lagi dobel; Pertemuan dan Sosial & qurban dirapikan sesuai tema.
 - Baru: absensi pertemuan per KK dan rekap kehadiran.
 - Perbaikan: tombol Pengaturan > Tampilan (galat warna bawaan), visi-misi di Area Warga.
+
+## Tahap 40
+- Menu bawah HP berbentuk gelembung mengambang (gaya iOS) dengan ikon berwarna.
+- Pilihan tema warna baru: Digital, Pastel, Luxury. Warna terang dan gelap disesuaikan otomatis sehingga teks selalu terbaca.

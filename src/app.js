@@ -91,7 +91,7 @@ function confirmM(text,yes,label="Ya, lanjutkan"){modal(`<h3>Konfirmasi</h3><p s
 
 /* ---- tampilan ---- */
 function head(){return `<div class="top"><div class="brand"><img class="logo" src="${LG()}" alt="Logo"><div><b>${esc(BN())}</b><span>Kel. ${esc(S.set.kelurahan)}, ${esc(S.set.kota)}</span></div></div>
- <span class="pill ${S.admin?"p-gold":"p-mute"}">${S.admin?"Pengurus (dapat mengubah) · v39":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</div>`}
+ <span class="pill ${S.admin?"p-gold":"p-mute"}">${S.admin?"Pengurus (dapat mengubah) · v40":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</div>`}
 function render(){
   const a=$("#app");applyTema();
   if(!S.db&&MODE==="pengurus"){a.innerHTML=vLogin();bind7();return}
@@ -273,7 +273,22 @@ function giliranTambah(){
     const o={...f,ikutGiliran:true};delete o.id;await put("keluarga/"+f.id,o);upsert(S.kel,{...o,id:f.id});
     const ids=hosts().map(h=>h.id).filter(i=>i!==f.id).concat(f.id);const n={...S.set,giliranUrut:ids};await put("pengaturan/rt",n);S.set=n;render();toast(f.kepala+" masuk giliran")}})}
 async function giliranSkip(id,ikut){const f=S.kel.find(x=>x.id===id);if(!f)return;const o={...f,ikutGiliran:ikut};delete o.id;await put("keluarga/"+id,o);upsert(S.kel,{...o,id});render()}
-function setForm(kind){
+
+function temaForm(){
+  const orig=S.set.tema,cur=S.set.tema||{preset:"Tosca (bawaan)",fs:"Normal"};let d={preset:cur.preset||"Tosca (bawaan)",accent:cur.accent||"#0e7c66",fs:cur.fs||"Normal"};if(!PRESET.hasOwnProperty(d.preset))d.preset="Tosca (bawaan)";
+  const prev=()=>{S.set={...S.set,tema:{...d}};applyTema()},sw=n=>{const p=PRESET[n];return `<button class="tsb" data-tp="${esc(n)}" aria-pressed="${d.preset===n}"><span class="tdot"><i style="background:${p.accent}"></i><i style="background:${p.bg}"></i><i style="background:${p.bgd||"#0a0b0d"}"></i></span><span>${esc(n)}</span></button>`};
+  const draw=()=>{modal(`<div class="row"><h3>Warna & huruf</h3><button class="btn sm" id="mc">Batal</button></div><p class="small muted" style="margin:6px 0 4px">Pilih tema. Latar terang dan gelap menyesuaikan otomatis, teks selalu terbaca. Pratinjau langsung di belakang.</p>
+   ${TGRP.map(g=>`<p class="tg">${g[0]}</p><div class="tsw">${g[1].map(sw).join("")}</div>`).join("")}
+   <p class="tg">Kustom</p><div class="tkus"><input type="color" id="tkA" value="${esc(PRESET[d.preset]?PRESET[d.preset].accent:d.accent)}" aria-label="Warna aksen kustom"><span class="small muted">Pilih warna aksen sendiri. Latar dibuat serasi otomatis.</span></div>
+   <p class="tg">Ukuran huruf</p><div class="chips1">${["Kecil","Normal","Besar"].map(f=>`<button class="chipb" data-tf="${f}" aria-pressed="${d.fs===f}">${f}</button>`).join("")}</div>
+   <p class="err" id="merr"></p><div class="mact"><button class="btn pri" id="tS">Simpan</button></div>`,true);
+   const cancel=()=>{S.set={...S.set,tema:orig};applyTema();closeM()};$("#mc").onclick=cancel;
+   document.querySelectorAll("[data-tp]").forEach(b=>b.onclick=()=>{d.preset=b.dataset.tp;d.accent=PRESET[d.preset].accent;prev();draw()});
+   document.querySelectorAll("[data-tf]").forEach(b=>b.onclick=()=>{d.fs=b.dataset.tf;prev();draw()});
+   $("#tkA").oninput=e=>{d.preset="Kustom";d.accent=e.target.value;prev()};
+   $("#tS").onclick=async()=>{try{const n={...S.set,tema:{preset:d.preset,accent:d.accent,fs:d.fs}};await put("pengaturan/rt",n);S.set=n;applyTema();closeM();render();toast("Tema tersimpan")}catch(e){$("#merr").textContent=e.message||"Gagal menyimpan"}}};
+  draw()}
+function setForm(kind){if(kind==="tema")return temaForm();
   const s=S.set,j=s.jadwal;
   const cfg={
    id:{title:"Identitas & pengurus",fields:[{id:"namaRT",label:"RT",value:s.namaRT,half:true},{id:"rw",label:"RW",value:s.rw,half:true},{id:"kelurahan",label:"Kelurahan",value:s.kelurahan,half:true},{id:"kota",label:"Kota",value:s.kota,half:true},{id:"kodepos",label:"Kode pos",value:s.kodepos,half:true},{id:"kecamatan",label:"Kecamatan",value:s.kecamatan,half:true},{id:"komplek",label:"Nama kompleks (kop surat)",value:s.komplek},{id:"ketuaRW",label:"Ketua RW (untuk tanda tangan surat; orang berbeda dari Bendahara RT)",value:s.ketuaRW},{id:"ketuaRWFoto",label:"Foto Ketua RW (opsional, kecil)",type:"img",value:s.ketuaRWFoto||"",max:200,lim:26000,hint:"Tampil di bagan struktur."},{id:"ketua",label:"Ketua RT",value:s.ketua},{id:"sekretaris",label:"Sekretaris",value:s.sekretaris},{id:"bendahara",label:"Bendahara",value:s.bendahara}],to:v=>v},
@@ -513,7 +528,7 @@ function shellHtml(tabs,content){
   const main=tabs.slice(0,S.admin?4:3),more=tabs.slice(main.length);
   return `<div class="shell"><aside class="side" aria-label="Menu utama"><div class="brand"><img class="logo" src="${LG()}" alt="Logo"><div><b>${esc(BS())}</b><span>Kel. ${esc(S.set.kelurahan)}</span></div></div>
    ${S.admin?`<button class="sbtn" id="sbtn" aria-label="Cari">${ic("cari")}<span>Cari…</span><kbd>Ctrl K</kbd></button>`:""}
-   <nav class="snav">${tabs.map(t=>lk(t)).join("")}</nav>${albumA("alb",1)}<span class="pill ${S.admin?"p-gold":"p-mute"}" style="align-self:flex-start">${S.admin?"Pengurus (dapat mengubah) · v39":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm" data-signout="1" style="align-self:flex-start">Keluar</button>`:""}</aside>
+   <nav class="snav">${tabs.map(t=>lk(t)).join("")}</nav>${albumA("alb",1)}<span class="pill ${S.admin?"p-gold":"p-mute"}" style="align-self:flex-start">${S.admin?"Pengurus (dapat mengubah) · v40":"Hanya lihat"}</span>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm" data-signout="1" style="align-self:flex-start">Keluar</button>`:""}</aside>
   <main class="mn ${S.anim?"anim":""}" id="mn"><div class="mtop"><div class="brand"><img class="logo" src="${LG()}" alt="Logo"><div><b>${esc(BS())}</b><span>${S.admin?"Pengurus":"Hanya lihat"}</span></div></div><span style="display:flex;gap:8px">${window.__mode?window.__mode.btn():""}${albumU()&&albumOk(albumU())?`<a class="ib" href="${esc(albumU())}" target="_blank" rel="noopener noreferrer" aria-label="Album foto">${ic("foto")}</a>`:""}${S.admin?`<button class="ib" id="sbtn2" aria-label="Cari">${ic("cari")}</button>`:""}${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn sm lob" data-signout="1" aria-label="Keluar dari akun" title="Keluar">${ic("out")}<span>Keluar</span></button>`:""}</span></div>${content}</main></div>
   <nav class="bnav" aria-label="Menu bawah">${main.map(t=>lk(t)).join("")}${more.length?`<button id="menuBtn" aria-label="Menu lainnya">${ic("menu")}<span>Menu</span>${more.some(t=>tabBadge(t[0]))?'<span class="bdg">!</span>':""}</button>`:""}</nav>`}
 function openMenu(){const tabs=TABS.filter(t=>(!t[2]||S.admin)&&!hid(t[0]));modal(`<div class="row"><h3>Menu</h3><button class="btn sm" id="mc">Tutup</button></div><div class="mgrid">${tabs.map(t=>`<a href="#${t[0]}" ${S.tab===t[0]?'aria-current="page"':""}>${ic(t[0])}<span>${t[1]}</span>${bdgH(t[0])}</a>`).join("")}${albumA("",1)}</div>${MODE==="publik"&&S.admin&&window.RT_AUTH?`<button class="btn" id="outM" style="width:100%;margin-top:12px">Keluar dari akun</button>`:""}`);$("#mc").onclick=closeM;const om=$("#outM");if(om)om.onclick=()=>window.RT_AUTH.signOut();document.querySelectorAll(".mgrid a").forEach(a=>a.addEventListener("click",()=>setTimeout(closeM,0)))}
@@ -556,13 +571,20 @@ function bind3(){
 document.addEventListener("keydown",e=>{const t=e.target&&e.target.tagName;if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSearch()}else if(e.key==="/"&&!/INPUT|TEXTAREA|SELECT/.test(t||"")&&S.admin){e.preventDefault();openSearch()}else if(e.key==="Escape"&&$("#modal").innerHTML)closeM()});
 
 
-const PRESET={"Tosca (bawaan)":{accent:"#0e7c66",bg:"#f4f5f7"},"Perunggu":{accent:"#6b4a1f",bg:"#f1efec"},"Biru tegas":{accent:"#1d4ed8",bg:"#f3f5fa"},"Hijau zaitun":{accent:"#2f5d3a",bg:"#eef1ec"},"Biru laut":{accent:"#1f4d7a",bg:"#edf1f5"},"Marun":{accent:"#7a2630",bg:"#f4eeee"},"Arang":{accent:"#383d45",bg:"#f0f0ef"},"Kustom":null};
+const PRESET={"Tosca (bawaan)":{accent:"#0e7c66",bg:"#f4f5f7"},"Perunggu":{accent:"#6b4a1f",bg:"#f1efec",bgd:"#0d0b09"},
+"Biru listrik":{accent:"#2563eb",bg:"#f2f5ff",bgd:"#070b16"},"Ungu siber":{accent:"#7c3aed",bg:"#f6f2ff",bgd:"#0b0814"},"Hijau neon":{accent:"#059669",bg:"#eefaf5",bgd:"#06100c"},"Cyan digital":{accent:"#0e7490",bg:"#eef8fb",bgd:"#061014"},"Magenta":{accent:"#c026d3",bg:"#fbf1fd",bgd:"#120614"},"Oranye api":{accent:"#ea580c",bg:"#fff4ec",bgd:"#140a05"},
+"Lavender":{accent:"#7c6bd6",bg:"#f6f4fd",bgd:"#0d0c14"},"Mint":{accent:"#2f9e83",bg:"#eff9f6",bgd:"#090f0d"},"Langit":{accent:"#3b8fd0",bg:"#f0f6fc",bgd:"#090e14"},"Mawar muda":{accent:"#d0587f",bg:"#fcf1f5",bgd:"#140a0e"},"Persik":{accent:"#e0764a",bg:"#fdf3ee",bgd:"#140c08"},
+"Emas champagne":{accent:"#a07a1c",bg:"#f8f3e6",bgd:"#0f0c06"},"Zamrud royal":{accent:"#0b6b4f",bg:"#eef5f1",bgd:"#07100c"},"Safir royal":{accent:"#1e3a8a",bg:"#eef1f8",bgd:"#070b14"},"Burgundi":{accent:"#7f1d3a",bg:"#f8eef0",bgd:"#12080b"},"Rose gold":{accent:"#b76e79",bg:"#f9f0f0",bgd:"#130b0c"},"Platinum":{accent:"#475569",bg:"#f1f3f5",bgd:"#0a0c0f"},"Onyx emas":{accent:"#8a6d1d",bg:"#f5f3ee",bgd:"#09090a"},
+"Biru tegas":{accent:"#1d4ed8",bg:"#f3f5fa",bgd:"#070a12"},"Hijau zaitun":{accent:"#2f5d3a",bg:"#eef1ec",bgd:"#080d09"},"Biru laut":{accent:"#1f4d7a",bg:"#edf1f5",bgd:"#080c11"},"Marun":{accent:"#7a2630",bg:"#f4eeee",bgd:"#100809"},"Arang":{accent:"#383d45",bg:"#f0f0ef",bgd:"#09090a"},"Kustom":null};
+const TGRP=[["Bawaan",["Tosca (bawaan)","Perunggu"]],["Digital",["Biru listrik","Ungu siber","Hijau neon","Cyan digital","Magenta","Oranye api"]],["Pastel",["Lavender","Mint","Langit","Mawar muda","Persik"]],["Luxury",["Emas champagne","Zamrud royal","Safir royal","Burgundi","Rose gold","Platinum","Onyx emas"]]];
+const mixHex=(a,b,t)=>"#"+[1,3,5].map(i=>Math.round(parseInt(a.substr(i,2),16)*(1-t)+parseInt(b.substr(i,2),16)*t).toString(16).padStart(2,"0")).join("");
 const lumOf=h=>{const m=/^#?([0-9a-f]{6})$/i.exec(h||"");if(!m)return 0;const v=[0,2,4].map(i=>parseInt(m[1].substr(i,2),16)/255).map(c=>c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4));return .2126*v[0]+.7152*v[1]+.0722*v[2]};
 function applyTema(){
   const t=S.set.tema||{},p=t.preset==="Kustom"?t:(PRESET[t.preset]||null),fs={Kecil:13,Normal:14,Besar:16}[t.fs]||14;let css="";
-  if(p&&t.preset!=="Tosca (bawaan)"&&t.preset!=="Perunggu (bawaan)"){const a=/^#[0-9a-f]{6}$/i.test(p.accent)?p.accent:"#6b4a1f",b=/^#[0-9a-f]{6}$/i.test(p.bg)?p.bg:"#f1efec",ink=lumOf(a)>.5?"#1a1208":"#ffffff";
-   const dk=`--accent:color-mix(in srgb,${a} 55%,#fff);--accent-soft:color-mix(in srgb,${a} 28%,#15110d);--gold:color-mix(in srgb,${a} 60%,#fff);--accent-ink:#1a1208;`;
-   css+=`:root:root{--accent:${a};--accent-ink:${ink};--accent-soft:color-mix(in srgb,${a} 13%,#fff);--gold:color-mix(in srgb,${a} 45%,#fff);--bg:${b};--chip:${b}}@media (prefers-color-scheme:dark){:root:root:not([data-theme="light"]){${dk}--chip:#efe8dc}}:root:root[data-theme="dark"]{${dk}--chip:#efe8dc}`}
+  if(p&&t.preset!=="Tosca (bawaan)"){const a=/^#[0-9a-f]{6}$/i.test(p.accent)?p.accent:"#6b4a1f",b=t.preset==="Kustom"?mixHex(a,"#ffffff",.93):(/^#[0-9a-f]{6}$/i.test(p.bg)?p.bg:"#f4f5f7"),bd=t.preset==="Kustom"?mixHex(a,"#000000",.93):(p.bgd||""),ink=lumOf(a)>.5?"#1a1208":"#ffffff";
+   const lt=`--accent:${a};--accent-ink:${ink};--accent-soft:color-mix(in srgb,${a} 13%,#fff);--gold:color-mix(in srgb,${a} 55%,#fff);--bg:${b};--chip:${b}`;
+   const dk=`--accent:color-mix(in srgb,${a} 55%,#fff);--accent-soft:color-mix(in srgb,${a} 30%,#101114);--gold:color-mix(in srgb,${a} 60%,#fff);--accent-ink:#0b0d10;${bd?`--bg:${bd};`:""}`;
+   css+=`:root:root[data-theme="light"]{${lt}}@media (prefers-color-scheme:light){:root:root:not([data-theme]){${lt}}}@media (prefers-color-scheme:dark){:root:root:not([data-theme]){${dk}}}:root:root[data-theme="dark"]{${dk}}`}
   css+=`html body{font-size:${fs}px}`;const tp=TP(),dd=document.documentElement.dataset;dd.rad=({Tajam:"tajam",Bulat:"bulat"})[tp.radius]||"";dd.dens=({Rapat:"rapat",Lega:"lega"})[tp.rapat]||"";dd.hero=({Polos:"polos",Ringkas:"ringkas"})[tp.hero]||"";dd.tile=({Kecil:"kecil",Besar:"besar"})[tp.kotak]||"";try{document.title=BN()}catch(e){}
   let el=document.getElementById("tema");if(!el){el=document.createElement("style");el.id="tema";document.head.appendChild(el)}if(el.textContent!==css)el.textContent=css}
 const albumU=()=>S.albumU||(S.set&&S.set.albumUrl)||"";
