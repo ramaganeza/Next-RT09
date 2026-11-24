@@ -1,5 +1,5 @@
 /* Service worker RT 09: jaringan dulu, cadangan dari cache bila offline. Data warga (Supabase) tidak pernah disimpan di cache. */
-const V="rt09-pwa-v41",SHELL=["./","index.html","src/styles.css","src/app.js","src/warga.js","src/logo.js","src/shim.js","src/demo.js","src/pwa.js","manifest.webmanifest","icons/icon-192.png"];
+const V="rt09-pwa-v42",SHELL=["./","index.html","src/styles.css","src/app.js","src/warga.js","src/logo.js","src/shim.js","src/demo.js","src/pwa.js","manifest.webmanifest","icons/icon-192.png"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(V).then(c=>Promise.allSettled(SHELL.map(u=>c.add(u)))).then(()=>self.skipWaiting()))});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener("fetch",e=>{

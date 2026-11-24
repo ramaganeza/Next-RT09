@@ -201,3 +201,11 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 - Mode demo dilengkapi: NIK/KK, foto profil, UMKM, produk, inventaris, fasum, qurban, pengumuman, absensi, kas dan iuran terisi (data fiktif, ilustrasi sebagai foto sampel).
 - Foto sampel ada di `src/demo_img.js`; boleh diganti dengan foto asli lewat menu Ubah foto.
 - Nama aplikasi untuk warga: SIRUTA (tautan pasang https://bit.ly/SIRUTA09, demo https://bit.ly/SIRATA-Demo).
+
+## Tahap 42
+- Kartu "Pertemuan warga berikutnya" (beranda pengurus, halaman depan, Area Warga) mengikuti tema.
+- Saldo akhir per periode: terbaru di atas, hanya tahun terakhir; tahun sebelumnya lewat tombol (pop-up).
+- Kotak masuk: filter jenis satu baris + pilihan status; tiap kartu satu tombol utama, WhatsApp, dan menu "⋯".
+- Surat > tab "Riwayat surat keluar": pencarian, tahun, jenis, unduh CSV. Data buku surat keluar diimpor dengan `tahap42_riwayat_surat_RAHASIA.sql` (jangan ke GitHub).
+- Jenis surat baru: Keterangan Banjir (isi tanggal, ketinggian air, kondisi), Belum Memiliki Rumah, Belum Pernah Menikah, Pengantar Paspor, KIA, Sekolah/Kuliah, Ijazah.
+- Album foto kegiatan: kartu bertema + tombol "Lihat galeri" (pratinjau folder Google Drive; folder harus dibagikan "Siapa saja yang memiliki link").
