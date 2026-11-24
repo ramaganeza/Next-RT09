@@ -196,3 +196,8 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 ## Tahap 40
 - Menu bawah HP berbentuk gelembung mengambang (gaya iOS) dengan ikon berwarna.
 - Pilihan tema warna baru: Digital, Pastel, Luxury. Warna terang dan gelap disesuaikan otomatis sehingga teks selalu terbaca.
+
+## Tahap 41
+- Mode demo dilengkapi: NIK/KK, foto profil, UMKM, produk, inventaris, fasum, qurban, pengumuman, absensi, kas dan iuran terisi (data fiktif, ilustrasi sebagai foto sampel).
+- Foto sampel ada di `src/demo_img.js`; boleh diganti dengan foto asli lewat menu Ubah foto.
+- Nama aplikasi untuk warga: SIRUTA (tautan pasang https://bit.ly/SIRUTA09, demo https://bit.ly/SIRATA-Demo).
