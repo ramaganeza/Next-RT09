@@ -10,7 +10,7 @@
     if(bar||sa()||tutup()||document.getElementById("demoBar"))return;
     if(!ev&&!ios)return;
     bar=document.createElement("div");bar.id="pwaBar";bar.setAttribute("role","dialog");bar.setAttribute("aria-label","Pasang aplikasi");
-    bar.innerHTML='<img src="icons/icon-192.png" alt=""><div style="flex:1"><b>Pasang aplikasi RT 09</b><span>'+(ev?"Buka lebih cepat dari layar utama HP, tanpa toko aplikasi.":"Ketuk ikon Bagikan, lalu pilih &ldquo;Tambahkan ke Layar Utama&rdquo;.")+'</span></div>'+(ev?'<button id="pwaGo">Pasang</button>':"")+'<button id="pwaX" aria-label="Tutup">&#10005;</button>';
+    bar.innerHTML='<img src="icons/icon-192.png" alt=""><div style="flex:1"><b>Pasang aplikasi '+(window.RT_BRAND_NAME||"RT")+'</b><span>'+(ev?"Buka lebih cepat dari layar utama HP, tanpa toko aplikasi.":"Ketuk ikon Bagikan, lalu pilih &ldquo;Tambahkan ke Layar Utama&rdquo;.")+'</span></div>'+(ev?'<button id="pwaGo">Pasang</button>':"")+'<button id="pwaX" aria-label="Tutup">&#10005;</button>';
     document.head.appendChild(st);document.body.appendChild(bar);
     document.getElementById("pwaX").onclick=()=>{try{localStorage.setItem(K,Date.now())}catch(e){}bar.remove();bar=null};
     const g=document.getElementById("pwaGo");if(g)g.onclick=async()=>{ev.prompt();try{await ev.userChoice}catch(e){}ev=null;bar&&bar.remove();bar=null}}
@@ -19,3 +19,7 @@
   if(ios)addEventListener("load",()=>setTimeout(tampil,4000));
   window.RT_PWA={pasang:()=>{if(ev){ev.prompt()}else tampil()}};
 })();
+
+/* Cek versi: bila berkas di server lebih baru, bersihkan cache lalu muat ulang sekali. */
+(function(){var V=44;try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.v||j.v<=V)return;try{if(sessionStorage.getItem("rt-reload")===String(j.v))return;sessionStorage.setItem("rt-reload",String(j.v))}catch(e){}
+ var rs=navigator.serviceWorker&&navigator.serviceWorker.getRegistrations?navigator.serviceWorker.getRegistrations():Promise.resolve([]);rs.then(function(l){return Promise.all(l.map(function(x){return x.update()}))}).then(function(){return window.caches?caches.keys():[]}).then(function(k){return Promise.all(k.map(function(n){return caches.delete(n)}))}).then(function(){location.reload()})}).catch(function(){})}catch(e){}})();

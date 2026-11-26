@@ -200,7 +200,7 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 ## Tahap 41
 - Mode demo dilengkapi: NIK/KK, foto profil, UMKM, produk, inventaris, fasum, qurban, pengumuman, absensi, kas dan iuran terisi (data fiktif, ilustrasi sebagai foto sampel).
 - Foto sampel ada di `src/demo_img.js`; boleh diganti dengan foto asli lewat menu Ubah foto.
-- Nama aplikasi untuk warga: SIRUTA (tautan pasang https://bit.ly/SIRUTA09, demo https://bit.ly/SIRATA-Demo).
+- Nama aplikasi untuk warga: SIRUTA (tautan pasang https://bit.ly/SIRUTA09, demo https://bit.ly/SIRUTA-Demo).
 
 ## Tahap 42
 - Kartu "Pertemuan warga berikutnya" (beranda pengurus, halaman depan, Area Warga) mengikuti tema.
@@ -209,3 +209,15 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 - Surat > tab "Riwayat surat keluar": pencarian, tahun, jenis, unduh CSV. Data buku surat keluar diimpor dengan `tahap42_riwayat_surat_RAHASIA.sql` (jangan ke GitHub).
 - Jenis surat baru: Keterangan Banjir (isi tanggal, ketinggian air, kondisi), Belum Memiliki Rumah, Belum Pernah Menikah, Pengantar Paspor, KIA, Sekolah/Kuliah, Ijazah.
 - Album foto kegiatan: kartu bertema + tombol "Lihat galeri" (pratinjau folder Google Drive; folder harus dibagikan "Siapa saja yang memiliki link").
+
+## Tahap 43A
+- Pertemuan: daftar KK yang tidak ikut giliran kini berupa pop-up (tombol "Tidak ikut giliran (n)") dengan pencarian dan tombol Ikutkan.
+- Surat & keterangan di HP: judul, nomor berikutnya, dan tombol "+ Surat baru" ditata ulang; daftar surat berupa kartu; kartu statistik riwayat tidak terpotong.
+- Perbaikan alamat "Hidup BaruIA" menjadi "Hidup Baru IA" pada riwayat surat (jalankan ulang `tahap42_riwayat_surat_RAHASIA.sql` yang baru; aman diulang).
+- Tautan resmi: warga https://bit.ly/SIRUTA09, demo https://bit.ly/SIRUTA-Demo.
+
+## Tahap 44 (v44) – siap dipakai RT/RW lain
+- Menu Pengaturan > Umum: kartu **Setelan awal** (checklist 8 langkah), kartu **Pejabat & tanda tangan surat**: nama Ketua RT, Ketua RW, tempat surat (mis. "Bekasi"), tombol unggah **TTD Ketua RT** dan **TTD Ketua RW**, serta pilihan mencantumkan/tidak kolom "Mengetahui Ketua RW".
+- Teks "RT 09", "Tangerang", "Pinang" yang sebelumnya tertanam kini mengikuti pengaturan (surat, pesan WhatsApp, nama berkas, daftar asal pengumuman, visi/misi/SOP bawaan).
+- `version.json` + pengecekan di `pwa.js`: bila ada versi lebih baru di server, aplikasi membersihkan cache dan memuat ulang otomatis. Versi tampil di bawah halaman Pengaturan > Umum.
+- Pembaruan: unggah/commit berkas baru lewat GitHub Desktop, lalu **Push**. Jangan memakai "Re-run" di Actions (menyebabkan error artifact ganda); cukup commit baru.
