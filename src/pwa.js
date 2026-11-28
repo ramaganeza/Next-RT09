@@ -21,5 +21,5 @@
 })();
 
 /* Cek versi: bila berkas di server lebih baru, bersihkan cache lalu muat ulang sekali. */
-(function(){var V=44;try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.v||j.v<=V)return;try{if(sessionStorage.getItem("rt-reload")===String(j.v))return;sessionStorage.setItem("rt-reload",String(j.v))}catch(e){}
+(function(){var V=45;try{fetch("version.json?t="+Date.now(),{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(j){if(!j||!j.v||j.v<=V)return;try{if(sessionStorage.getItem("rt-reload")===String(j.v))return;sessionStorage.setItem("rt-reload",String(j.v))}catch(e){}
  var rs=navigator.serviceWorker&&navigator.serviceWorker.getRegistrations?navigator.serviceWorker.getRegistrations():Promise.resolve([]);rs.then(function(l){return Promise.all(l.map(function(x){return x.update()}))}).then(function(){return window.caches?caches.keys():[]}).then(function(k){return Promise.all(k.map(function(n){return caches.delete(n)}))}).then(function(){location.reload()})}).catch(function(){})}catch(e){}})();

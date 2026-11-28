@@ -221,3 +221,8 @@ Situs kini bisa dipasang di layar utama Android dan iPhone (manifest, service wo
 - Teks "RT 09", "Tangerang", "Pinang" yang sebelumnya tertanam kini mengikuti pengaturan (surat, pesan WhatsApp, nama berkas, daftar asal pengumuman, visi/misi/SOP bawaan).
 - `version.json` + pengecekan di `pwa.js`: bila ada versi lebih baru di server, aplikasi membersihkan cache dan memuat ulang otomatis. Versi tampil di bawah halaman Pengaturan > Umum.
 - Pembaruan: unggah/commit berkas baru lewat GitHub Desktop, lalu **Push**. Jangan memakai "Re-run" di Actions (menyebabkan error artifact ganda); cukup commit baru.
+
+## Tahap 45 (v45) – perbaikan pertemuan dan tombol hapus
+- Perbaikan: panel "Pertemuan berikutnya" kini mengikuti pertemuan yang sudah dijadwalkan (bukan tuan rumah setelahnya). Pertemuan berstatus Batal atau Selesai tidak lagi tampil sebagai "berikutnya" di portal warga.
+- Pertemuan: tombol **Hapus** pada tiap pertemuan, **Hapus yang batal (n)**, daftar dibatasi 6 terbaru dengan tombol Tampilkan semua, dan jadwal ganda pada tanggal yang sama ditolak. Tanggal bawaan form mengikuti pertemuan terakhir yang sudah dijadwalkan.
+- Data warga: KK berstatus nonaktif (pindah / kontrak selesai) dapat **dihapus permanen**.

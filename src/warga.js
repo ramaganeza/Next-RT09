@@ -33,7 +33,7 @@ async function loadNotif(){const f=data.keluarga,tg=data.tagihan,tot=tg.reduce((
  if(tot>0)L.push({id:"tag-"+tg.map(x=>x.periode+x.jenis).join(","),t:"Tagihan iuran belum terbayar",d:rp(tot)+" · lihat rincian di menu Tagihan",k:"tag",go:"tag"});
  (data.surat||[]).slice(0,3).forEach(x=>{if(x.status==="terbit")L.push({id:"sur-"+x.id+x.status,t:"Surat sudah terbit",d:x.jenis+" a.n. "+x.nama+" (No. "+(x.nomor||"-")+"). Silakan ambil dari pengurus RT.",k:"sur",go:"sur"});else if(x.status==="ditolak")L.push({id:"sur-"+x.id+x.status,t:"Pengajuan surat ditolak",d:x.jenis+" a.n. "+x.nama+". Hubungi pengurus RT.",k:"sur",go:"sur"})});
  try{const [p,g]=await Promise.all([sb.from("docs").select("id,data").eq("coll","pertemuan"),sb.from("docs").select("id,data").eq("coll","kegiatan")]);
-  const nx=(p.data||[]).map(r=>r.data).filter(x=>x&&x.tanggal>=today).sort((a,b)=>a.tanggal.localeCompare(b.tanggal))[0];
+  const nx=(p.data||[]).map(r=>r.data).filter(x=>x&&x.tanggal>=today&&x.status!=="batal"&&x.status!=="selesai").sort((a,b)=>a.tanggal.localeCompare(b.tanggal))[0];
   NXT=nx||null;if(nx)L.push({id:"pert-"+nx.tanggal,t:"Pertemuan warga berikutnya",d:tglID(nx.tanggal)+(nx.tuanRumahNama?" · rumah "+nx.tuanRumahNama:""),k:"kel"});
   ANN=(g.data||[]).map(r=>({id:r.id,...r.data})).filter(x=>x.tipe!=="notulen"&&x.tanggal).sort((a,b)=>b.tanggal.localeCompare(a.tanggal)).slice(0,3);ANN.slice(0,2).forEach(x=>L.push({id:"keg-"+x.id,t:x.judul||"Pengumuman",d:tglID(x.tanggal),k:"alb"}))}catch(e){}
  if(f.waqaf&&WQ[f.waqaf])L.push({id:"waq-"+f.waqaf,t:"Status Tanah Wakaf MBM",d:WQ[f.waqaf][0],k:"waq",go:"info"});
